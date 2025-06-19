@@ -11,6 +11,7 @@
         <div class="footer-contact pt-3">
           <p>Jl. Daan Mogot No.KM. 11 1, RT.12/RW.4, Kedaung Kali Angke, Kecamatan Cengkareng</p>
           <p>Kota Jakarta Barat, DKI Jakarta 11710</p>
+          <p class="mt-3"><strong>Manager:</strong> <span>Athar Fazli</span></p>
           <p class="mt-3"><strong>Phone:</strong> <span>+62 878 1609 8777</span></p>
           <p><strong>Email:</strong> <span>atharfs9@gmail.com</span></p>
         </div>
@@ -26,10 +27,10 @@
       <div class="col-lg-6 col-md-3 footer-links">
         <h4>Useful Links</h4>
         <ul>
-          <li><a href="#hero">Home</a></li>
-          <li><a href="#about">Meal Plans</a></li>
-          <li><a href="#services">Subscription</a></li>
-          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="{{ route('home') }}">Home</a></li>
+          <li><a href="{{ route('mealplans') }}">Meal Plans</a></li>
+          <li><a href="{{ route('subscriptions') }}">Subscription</a></li>
+          <li><a href="{{ route('contact') }}">Contact Us</a></li>
         </ul>
       </div>
 

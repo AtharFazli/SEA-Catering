@@ -16,7 +16,7 @@
           <h1 data-aos="fade-up">Welcome to <span>SEA Catering</span></h1>
           <p data-aos="fade-up" data-aos-delay="100">Healthy Meals, Anytime, Anywhere<br></p>
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-            <a href="#about" class="btn-get-started">Get Started</a>
+            <a href="#about" class="btn-get-started">Get Yours Now</a>
           </div>
           <img src="{{ asset('/QuickStart/assets/img/hero-services-img.webp') }}" class="img-fluid hero-img" alt="" data-aos="zoom-out" data-aos-delay="300">
         </div>
@@ -86,7 +86,6 @@
               <li><i class="bi bi-check-circle"></i> <span>Fresh & Local Ingredients – Sourced daily to ensure quality, taste, and sustainability in every bite.</span></li>
               <li><i class="bi bi-check-circle"></i> <span>Nationwide Delivery – Whether you're in the city or remote areas, we bring wellness wherever you are.</span></li>
             </ul>
-            <a href="#" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
           </div>
 
           <div class="col-lg-6 about-images" data-aos="fade-up" data-aos-delay="200">
@@ -241,7 +240,6 @@
           <div>
             <h3>Meal Customization</h3>
             <p>Build your meals your way. Choose ingredients, portions, and preferences that match your lifestyle and dietary goals.</p>
-            <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
       </div>
@@ -253,7 +251,6 @@
           <div>
             <h3>Nationwide Delivery</h3>
             <p>We deliver to Jakarta, Bandung, Surabaya, and more — with reliable, temperature-controlled packaging for guaranteed freshness.</p>
-            <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
       </div>
@@ -265,7 +262,6 @@
           <div>
             <h3>Nutritional Transparency</h3>
             <p>Track what you eat with detailed macros, calories, and ingredient breakdowns on every meal we offer.</p>
-            <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
       </div>
@@ -277,7 +273,6 @@
           <div>
             <h3>Weekly & Monthly Plans</h3>
             <p>Stay consistent with flexible subscription plans. Perfect for individuals, families, or office teams looking to eat healthy long-term.</p>
-            <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
       </div>
@@ -289,7 +284,6 @@
           <div>
             <h3>Local, Fresh Ingredients</h3>
             <p>We partner with trusted local farmers and markets to bring you the freshest ingredients in every meal.</p>
-            <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
       </div>
@@ -301,7 +295,6 @@
           <div>
             <h3>Personalized Support</h3>
             <p>Got questions about your meal plan or nutrition? Our support team is ready to help you make the most of every bite.</p>
-            <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
       </div>
