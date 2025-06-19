@@ -6,7 +6,7 @@
         <h1 class="sitename">SEA Catering</h1>
       </a>
 
-      <nav id="navmenu" class="navmenu">
+      <nav id="navmenu" class="navmenu mb-5">
         <ul>
           <li><a href="{{ route('home') }}" class="{{ Route::is('home') ? 'active' : '' }}">Home</a></li>
           <li><a href="{{ route('mealplans') }}" class="{{  Route::is('mealplans') ? 'active' : '' }}">Meal Plans</a></li>
