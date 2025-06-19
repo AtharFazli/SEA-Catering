@@ -9,10 +9,10 @@
         <nav class="navmenu mb-5" id="navmenu">
             <ul>
                 <li><a class="{{ Route::is('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a></li>
-                <li><a class="{{ Route::is('mealplans.index') ? 'active' : '' }}" href="{{ route('mealplans.index') }}">Meal
-                        Plans</a></li>
-                <li><a class="{{ Route::is('subscriptions') ? 'active' : '' }}"
-                        href="{{ route('subscriptions') }}">Subscription</a></li>
+                <li><a class="{{ Route::is('mealplans.index') ? 'active' : '' }}" href="{{ route('mealplans.index') }}">Meal Plans</a></li>
+                @auth
+                <li><a class="{{ Route::is('subscriptions') ? 'active' : '' }}" href="{{ route('subscriptions') }}">Subscription</a></li>
+                @endauth
                 <li><a class="{{ Route::is('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact Us</a>
                 </li>
                 @guest
