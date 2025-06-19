@@ -408,6 +408,64 @@
       </div>
 
     </section><!-- /Testimonials Section -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Testimonial Form</h2>
+        <p>Share your experiences with SEA Catering. We'd love to hear from you!</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4 mt-1">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+            <img width="500px" src="{{ asset('img/meal6.jpg') }}" alt="{{ asset('img/ingredients6.jpg') }}">
+          </div>
+
+          <div class="col-lg-6">
+  <form action="forms/submit-review.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="400">
+    <div class="row gy-4">
+
+      <!-- Customer Name -->
+      <div class="col-md-12">
+        <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+      </div>
+
+      <!-- Review Message -->
+      <div class="col-md-12">
+        <textarea class="form-control" name="message" rows="5" placeholder="Your Review Message" required=""></textarea>
+      </div>
+
+      <!-- Rating -->
+      <div class="col-md-12">
+        <label for="rating" class="form-label">Rating</label>
+        <select class="form-select" name="rating" required="">
+          <option value="" disabled selected>Choose rating</option>
+          <option value="5">★★★★★ - Excellent</option>
+          <option value="4">★★★★☆ - Very Good</option>
+          <option value="3">★★★☆☆ - Good</option>
+          <option value="2">★★☆☆☆ - Fair</option>
+          <option value="1">★☆☆☆☆ - Poor</option>
+        </select>
+      </div>
+
+
+        <button type="submit">Submit Review</button>
+      </div>
+
+    </div>
+  </form>
+</div><!-- End Review Form -->
+
+
+        </div>
+
+      </div>
+
+    </section><!-- /Contact Section -->
 @endsection
 
 @push('scripts')
