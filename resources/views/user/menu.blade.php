@@ -4,13 +4,13 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>SEA Catering</title>
+  <title>Starter Page - QuickStart Bootstrap Template</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="{{ asset('/QuickStart/assets/img/favicon.png') }}" rel="icon">
-  <link href="{{ asset('/QuickStart/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -36,24 +36,22 @@
   ======================================================== -->
 </head>
 
-<body class="index-page">
+<body class="starter-page-page">
 
-  <header id="header" class="header d-flex align-items-center fixed-top">
+  <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="/" class="logo d-flex align-items-center me-auto">
-        <img src="{{ asset('/QuickStart/assets/img/logo.png') }}" alt="">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <img src="assets/img/logo.png" alt="">
         <h1 class="sitename">QuickStart</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="/#hero" class="active">Home</a></li>
-          <li><a href="/#about">About</a></li>
-          <li><a href="/#features">Features</a></li>
-          <li><a href="/#services">Services</a></li>
-          <li><a href="/#pricing">Pricing</a></li>
-          <li><a href="/#contact">Contact</a></li>
+          <li><a href="{{ route('home') }}" class="{{ Route::is('home') ? 'active' : '' }}">Home</a></li>
+          <li><a href="{{ route('mealplans') }}" class="{{  Route::is('mealplans') ? 'active' : '' }}">Meal Plans</a></li>
+          <li><a href="{{ route('subscriptions') }}" class="{{ Route::is('subscriptions') ? 'active' : '' }}">Subscription</a></li>
+          <li><a href="{{ route('contact') }}" class="{{ Route::is('contact') ? 'active' : '' }}">Contact Us</a></li>
           <li class="dropdown"><a href="#"><span>User (Guest)</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a href="{{ route('login') }}">Login</a></li>

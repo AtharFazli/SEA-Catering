@@ -48,10 +48,10 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="/#hero" class="active">Home</a></li>
-          <li><a href="/#about">About</a></li>
-          <li><a href="/#features">Features</a></li>
-          <li><a href="/#services">Services</a></li>
+          <li><a href="{{ route('home') }}" class="{{ Route::is('home') ? 'active' : '' }}">Home</a></li>
+          <li><a href="{{ route('mealplans') }}" class="{{  Route::is('mealplans') ? 'active' : '' }}">Meal Plans</a></li>
+          <li><a href="{{ route('subscriptions') }}" class="{{ Route::is('subscriptions') ? 'active' : '' }}">Subscription</a></li>
+          <li><a href="{{ route('contact') }}" class="{{ Route::is('contact') ? 'active' : '' }}">Contact Us</a></li>
           <li class="dropdown"><a href="#"><span>User (Guest)</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a href="{{ route('login') }}">Login</a></li>
@@ -87,7 +87,7 @@
     </section><!-- /Hero Section -->
 
     <!-- Featured Services Section -->
-    <section id="featured-services" class="featured-services section light-background">
+    <section id="" class="featured-services section light-background">
 
       <div class="container">
 
@@ -131,7 +131,7 @@
     </section><!-- /Featured Services Section -->
 
     <!-- About Section -->
-    <section id="about" class="about section">
+    <section id="" class="about section">
 
       <div class="container">
 
@@ -176,7 +176,7 @@
     </section><!-- /About Section -->
 
     <!-- Clients Section -->
-    <section id="clients" class="clients section">
+    <section id="" class="clients section">
 
       <div class="container" data-aos="fade-up">
 
@@ -213,7 +213,7 @@
     </section><!-- /Clients Section -->
 
     <!-- Features Section -->
-    <section id="features" class="features section">
+    <section id="" class="features section">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
@@ -284,7 +284,7 @@
     
 
     <!-- Services Section -->
-<section id="services" class="services section light-background">
+<section id="" class="services section light-background">
 
   <!-- Section Title -->
   <div class="container section-title" data-aos="fade-up">
@@ -407,9 +407,9 @@
         <h4>Useful Links</h4>
         <ul>
           <li><a href="#hero">Home</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#about">Meal Plans</a></li>
+          <li><a href="#services">Subscription</a></li>
+          <li><a href="#contact">Contact Us</a></li>
         </ul>
       </div>
 
