@@ -304,4 +304,138 @@
   </div>
 
 </section><!-- /Services Section -->
+
+<!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Testimonials</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="swiper init-swiper">
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+  <div class="testimonial-item">
+    <div class="stars">
+      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+    </div>
+    <p>
+      I've tried many meal delivery services, but SEA Catering is on another level. The meals are fresh, tasty, and perfectly portioned. I’ve lost 4kg in a month without feeling restricted!
+    </p>
+    <div class="profile mt-auto">
+      <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+      <h3>Saul Goodman</h3>
+      <h4>Fitness Coach</h4>
+    </div>
+  </div>
+</div>
+
+<div class="swiper-slide">
+  <div class="testimonial-item">
+    <div class="stars">
+      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+    </div>
+    <p>
+      I love how SEA Catering allows me to customize my meals. As a vegetarian, it’s hard to find healthy and balanced options—but this service gets it just right!
+    </p>
+    <div class="profile mt-auto">
+      <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+      <h3>Sara Wilsson</h3>
+      <h4>UI Designer</h4>
+    </div>
+  </div>
+</div>
+
+<div class="swiper-slide">
+  <div class="testimonial-item">
+    <div class="stars">
+      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+    </div>
+    <p>
+      I subscribed to the Protein Plan and it’s been amazing. Meals arrive on time, are super filling, and help me hit my nutrition goals. Plus, I don’t waste time cooking anymore!
+    </p>
+    <div class="profile mt-auto">
+      <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+      <h3>Jena Karlis</h3>
+      <h4>Online Coach</h4>
+    </div>
+  </div>
+</div>
+
+<div class="swiper-slide">
+  <div class="testimonial-item">
+    <div class="stars">
+      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+    </div>
+    <p>
+      SEA Catering helped me get my diet back on track. Their Diet Plan is both affordable and delicious. I recommend it to anyone who’s too busy to cook but still wants to eat healthy.
+    </p>
+    <div class="profile mt-auto">
+      <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+      <h3>Matt Brandon</h3>
+      <h4>Freelancer</h4>
+    </div>
+  </div>
+</div>
+
+<div class="swiper-slide">
+  <div class="testimonial-item">
+    <div class="stars">
+      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+    </div>
+    <p>
+      The Royal Plan is totally worth it. I feel more energized and focused since switching to SEA Catering. Plus, their support team is super responsive!
+    </p>
+    <div class="profile mt-auto">
+      <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+      <h3>John Larson</h3>
+      <h4>Startup Founder</h4>
+    </div>
+  </div>
+</div>
+
+
+          </div>
+          <div class="swiper-pagination"></div>
+          
+        </div>
+
+      </div>
+
+    </section><!-- /Testimonials Section -->
 @endsection
+
+@push('scripts')
+    <script>
+  new Swiper('.init-swiper', {
+    loop: true,
+    speed: 600,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false
+    },
+    slidesPerView: 1,
+    spaceBetween: 20,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 30
+      },
+      1200: {
+        slidesPerView: 3,
+        spaceBetween: 30
+      }
+    }
+  });
+</script>
+
+@endpush

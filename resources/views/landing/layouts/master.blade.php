@@ -27,6 +27,10 @@
   <!-- Main CSS File -->
   <link href="{{ asset('/QuickStart/assets/css/main.css') }}" rel="stylesheet">
 
+  {{-- swiper --}}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+
   <!-- =======================================================
   * Template Name: QuickStart
   * Template URL: https://bootstrapmade.com/quickstart-bootstrap-startup-website-template/
@@ -49,6 +53,8 @@
   </main>
 
   @include('landing.layouts.footer')
+
+  @stack('scripts')
 
 </body>
 
