@@ -28,7 +28,7 @@
         <h4>Useful Links</h4>
         <ul>
           <li><a href="{{ route('home') }}">Home</a></li>
-          <li><a href="{{ route('mealplans') }}">Meal Plans</a></li>
+          <li><a href="{{ route('mealplans.index') }}">Meal Plans</a></li>
           <li><a href="{{ route('subscriptions') }}">Subscription</a></li>
           <li><a href="{{ route('contact') }}">Contact Us</a></li>
         </ul>
