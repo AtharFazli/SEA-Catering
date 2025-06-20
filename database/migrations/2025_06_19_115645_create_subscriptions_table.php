@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('phone_number');
             $table->foreignId('plan_id')->constrained()->onDelete('cascade');
             $table->text('allergies')->nullable();
+            $table->enum('status', ['active', 'paused', 'cancelled'])->default('active');
             $table->timestamps();
         });
     }

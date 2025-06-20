@@ -22,7 +22,7 @@ Route::get('/contact', function () {
     return view('user.contact');
 })->name('contact');
 
-Route::get('mealplans', [MealPlanController::class,'index'])->name('mealplans.index');
+Route::get('mealplans', [MealPlanController::class, 'index'])->name('mealplans.index');
 
 Route::get('/subscriptions', function () {
     return view('user.subs');
@@ -30,9 +30,6 @@ Route::get('/subscriptions', function () {
 Route::post('/subscriptions', [SubscriptionController::class, 'store'])->name('subscriptions.store');
 
 
-Route::get('/dashboard/user', function () {
-    return view('dashboard.user.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -40,4 +37,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [SubscriptionController::class, 'index'])->name('dashboard');
+    Route::get('/subscriptions/pause/{id}', [SubscriptionController::class, 'pause'])->name('subscriptions.pause');
+    Route::post('/subscriptions/pause', [SubscriptionController::class, 'submitPause'])->name('subscriptions.pause.submit');
+    Route::delete('/subscriptions/cancel/{id}', [SubscriptionController::class, 'cancel'])->name('subscriptions.cancel');
+});
+
+
+require __DIR__ . '/auth.php';
