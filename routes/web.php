@@ -12,6 +12,10 @@ Route::get('/', function () {
     return view('landing', compact('testimonials'));
 })->name('home');
 
+Route::get('/tes', function () {
+    return view('dash');
+});
+
 Route::post('/testimonial', [TestimonialController::class, 'store'])->name('testimonial.store');
 
 Route::get('/contact', function () {
@@ -25,8 +29,9 @@ Route::get('/subscriptions', function () {
 })->name('subscriptions');
 Route::post('/subscriptions', [SubscriptionController::class, 'store'])->name('subscriptions.store');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+
+Route::get('/dashboard/user', function () {
+    return view('dashboard.user.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
