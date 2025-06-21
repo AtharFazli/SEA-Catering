@@ -20,7 +20,7 @@ class SubscriptionController extends Controller
             ->latest()
             ->get();
     } else {
-        $subscriptions = $user->subscriptions()
+        $subscriptions = $user->Subscriptions()
             ->with(['plan', 'mealTypes', 'deliveryDays'])
             ->latest()
             ->get();

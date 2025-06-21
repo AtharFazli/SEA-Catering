@@ -344,44 +344,44 @@
 
                     {{-- foreach start --}}
                     @foreach ($testimonials as $testimonial)
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <div class="stars">
+                        <div class="swiper-slide">
+                            <div class="testimonial-item">
+                                <div class="stars">
 
-                                @switch($testimonial->rating)
-                                    @case(1)
-                                        <i class="bi bi-star-fill"></i>
-                                    @break
+                                    @switch($testimonial->rating)
+                                        @case(1)
+                                            <i class="bi bi-star-fill"></i>
+                                        @break
 
-                                    @case(2)
-                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                                    @break
+                                        @case(2)
+                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                        @break
 
-                                    @case(3)
-                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                            class="bi bi-star-fill"></i>
-                                    @break
+                                        @case(3)
+                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                class="bi bi-star-fill"></i>
+                                        @break
 
-                                    @case(4)
-                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                            class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                                    @break
+                                        @case(4)
+                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                        @break
 
-                                    @case(5)
-                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                            class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                            class="bi bi-star-fill"></i>
-                                    @break
+                                        @case(5)
+                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                class="bi bi-star-fill"></i>
+                                        @break
 
-                                    @default
-                                @endswitch
-                            </div>
-                            <p>{{ $testimonial->review }}</p>
-                            <div class="profile mt-auto">
-                                <h3>{{ $testimonial->name }}</h3>
+                                        @default
+                                    @endswitch
+                                </div>
+                                <p>{{ $testimonial->review }}</p>
+                                <div class="profile mt-auto">
+                                    <h3>{{ $testimonial->name }}</h3>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
                     {{-- foreach end --}}
                 </div>
@@ -393,8 +393,8 @@
 
     </section><!-- /Testimonials Section -->
 
-    <!-- Contact Section -->
-    <section class="contact section" id="contact">
+    <!-- Testimonial Section -->
+    <section class="contact section" id="testimonials_form">
 
         <!-- Section Title -->
         <div class="section-title container" data-aos="fade-up">
@@ -410,6 +410,20 @@
                 </div>
 
                 <div class="col-lg-6">
+                    {{-- @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                            <button class="close" data-dismiss="alert" type="button">&times;</button>
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session('error') }}
+                            <button class="close" data-dismiss="alert" type="button">&times;</button>
+                        </div>
+                    @endif --}}
+
                     <form class="" data-aos="fade-up" data-aos-delay="400"
                         action="{{ route('testimonial.store') }}" method="post">
                         @csrf
@@ -440,12 +454,12 @@
                             </div>
 
                             @guest
-                            <button type="submit" class="btn btn-primary disabled">Login to Submit Review</button>
-                            
+                                <button class="btn btn-primary disabled" type="submit">Login to Submit Review</button>
+
                             @endguest
                             @auth
-                            <button type="submit" class="btn btn-primary">Submit Review</button>
-                                
+                                <button class="btn btn-primary" type="submit">Submit Review</button>
+
                             @endauth
                         </div>
 
@@ -457,11 +471,32 @@
 
         </div>
 
-    </section><!-- /Contact Section -->
+    </section><!-- /Testimonial Section -->
 @endsection
+
 
 @push('scripts')
     <script>
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        @endif
+
+        @if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: '{{ session('error') }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        @endif
+
         new Swiper('.init-swiper', {
             loop: true,
             speed: 600,

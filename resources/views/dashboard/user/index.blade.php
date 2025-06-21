@@ -33,17 +33,21 @@
                         <tbody>
                             @foreach ($subscriptions as $sub)
                                 <tr>
-                                    <td>{{ $sub->plan_name }}</td>
-                                    <td>{{ $sub->meal_types }}</td>
-                                    <td>{{ $sub->delivery_days }}</td>
-                                    <td>Rp{{ number_format($sub->total_price, 0, ',', '.') }}</td>
+                                    <td>{{ $sub->plan->name }}</td>
+                                    <td>{{ $sub->mealTypes->pluck('name')->implode(', ') }}</td>
+                                    <td>{{ $sub->deliveryDays->pluck('name')->implode(', ') }}</td>
+                                    <td>Rp{{ number_format($sub->plan->price_per_meal * $sub->mealTypes->count() * $sub->deliveryDays->count(), 0, ',', '.') }}
+                                    </td>
+
                                     <td>
                                         <span
                                             class="badge badge-{{ $sub->status == 'active' ? 'success' : 'secondary' }}">{{ ucfirst($sub->status) }}</span>
                                     </td>
                                     <td>
-                                        <a class="btn btn-warning btn-sm"
-                                            href="{{ route('subscriptions.pause', $sub->id) }}">Pause</a>
+                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#pauseModal"
+                                            data-id="{{ $sub->id }}">
+                                            Pause
+                                        </button>
                                         <form class="d-inline" action="{{ route('subscriptions.cancel', $sub->id) }}"
                                             method="POST"
                                             onsubmit="return confirm('Yakin ingin membatalkan langganan ini?');">
@@ -90,13 +94,31 @@
 
 @push('scripts')
     <script>
-        document.querySelectorAll('a[href*="subscriptions.pause"]').forEach(btn => {
-            btn.addEventListener('click', e => {
-                e.preventDefault();
-                const id = btn.getAttribute('href').split('/').pop();
-                document.getElementById('pauseSubscriptionId').value = id;
-                $('#pauseModal').modal('show');
-            });
+        $('#pauseModal').on('show.bs.modal', function(event) {
+            let button = $(event.relatedTarget);
+            let subscriptionId = button.data('id');
+            $(this).find('#pauseSubscriptionId').val(subscriptionId);
         });
+
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        @endif
+
+        // Alert handling
+        @if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: '{{ session('error') }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        @endif
     </script>
 @endpush

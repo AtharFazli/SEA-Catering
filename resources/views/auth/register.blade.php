@@ -136,7 +136,7 @@
             <form class="space-y-4" id="authForm" method="POST" action="{{ route('register') }}">
                 @csrf
                 <!-- Name Field (Register Only) -->
-                <div class="hidden" id="nameField">
+                <div class="" id="nameField">
                     <div class="relative">
                         <svg class="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-gray-400"
                             fill="none" stroke="currentColor" viewBox="0 0 24 24">

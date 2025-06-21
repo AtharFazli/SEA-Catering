@@ -20,10 +20,12 @@ class DashboardController extends Controller
     } else {
         $subscriptions = $user->subscriptions()
             ->with(['plan', 'mealTypes', 'deliveryDays'])
+            ->where('user_id', $user->id)
             ->latest()
             ->get();
     }
 
+    // return $subscriptions;
     return view('dashboard.user.index', compact('subscriptions'));
     }
 }

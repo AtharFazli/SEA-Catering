@@ -21,6 +21,6 @@ class TestimonialController extends Controller
             'rating'    => $request->rating
         ]);
 
-        return to_route('home')->with('success','Testimonial added successfully');
+        return redirect('/#testimonials_form')->with('success','Testimonial added successfully');
     }
 }
