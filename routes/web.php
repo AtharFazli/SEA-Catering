@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Models\Testimonial;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -10,11 +11,10 @@ use App\Http\Controllers\SubscriptionController;
 Route::get('/', function () {
     $testimonials = Testimonial::orderBy('id', 'asc')->get();
     return view('landing', compact('testimonials'));
+
 })->name('home');
 
-Route::get('/tes', function () {
-    return view('dash');
-});
+
 
 Route::post('/testimonial', [TestimonialController::class, 'store'])->name('testimonial.store');
 
@@ -37,8 +37,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [SubscriptionController::class, 'index'])->name('dashboard');
+
+
+
+Route::middleware(['auth'])->prefix('dash')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/subscriptions/pause/{id}', [SubscriptionController::class, 'pause'])->name('subscriptions.pause');
     Route::post('/subscriptions/pause', [SubscriptionController::class, 'submitPause'])->name('subscriptions.pause.submit');
     Route::delete('/subscriptions/cancel/{id}', [SubscriptionController::class, 'cancel'])->name('subscriptions.cancel');
