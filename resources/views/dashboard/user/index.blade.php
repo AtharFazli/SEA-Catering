@@ -19,7 +19,7 @@
                 <p>Tidak ada langganan aktif.</p>
             @else
                 <div class="table-responsive">
-                    <table class="table-bordered table">
+                    <table class="table-bordered table" id="datatable">
                         <thead>
                             <tr>
                                 <th>Nama Paket</th>
@@ -44,17 +44,18 @@
                                             class="badge badge-{{ $sub->status == 'active' ? 'success' : 'secondary' }}">{{ ucfirst($sub->status) }}</span>
                                     </td>
                                     <td>
-                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#pauseModal"
-                                            data-id="{{ $sub->id }}">
+                                        <button class="btn btn-warning btn-sm mb-3" data-toggle="modal"
+                                            data-target="#pauseModal" data-id="{{ $sub->id }}">
                                             Pause
                                         </button>
                                         <form class="d-inline" action="{{ route('subscriptions.cancel', $sub->id) }}"
                                             method="POST"
-                                            onsubmit="return confirm('Yakin ingin membatalkan langganan ini?');">
+                                            onsubmit="console.log('Submitting cancel form...'); return confirm('Yakin ingin membatalkan langganan ini?');">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-danger btn-sm" type="submit">Cancel</button>
                                         </form>
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -94,13 +95,21 @@
 
 @push('scripts')
     <script>
+        $(function() {
+            $("#datatable").DataTable({
+                dom: "fltp"
+            });
+        })
+    </script>
+
+    <script>
         $('#pauseModal').on('show.bs.modal', function(event) {
             let button = $(event.relatedTarget);
             let subscriptionId = button.data('id');
             $(this).find('#pauseSubscriptionId').val(subscriptionId);
         });
 
-        @if(session('success'))
+        @if (session('success'))
             Swal.fire({
                 icon: 'success',
                 title: 'Berhasil!',
@@ -111,7 +120,7 @@
         @endif
 
         // Alert handling
-        @if(session('error'))
+        @if (session('error'))
             Swal.fire({
                 icon: 'error',
                 title: 'Gagal!',
@@ -120,5 +129,21 @@
                 showConfirmButton: false
             });
         @endif
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0]; // Format YYYY-MM-DD
+            const startInput = document.querySelector('[name="pause_start"]');
+            const endInput = document.querySelector('[name="pause_end"]');
+
+            startInput.min = today;
+            endInput.min = today;
+
+            // Opsional: end date tidak boleh sebelum start date
+            startInput.addEventListener('change', function() {
+                endInput.min = this.value;
+            });
+        });
     </script>
 @endpush

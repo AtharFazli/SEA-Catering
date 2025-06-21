@@ -5,11 +5,16 @@
 @endsection
 
 @push('styles')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2/dist/js/select2.min.js"></script>
+
     <style>
-      .page-title {
-         margin-top: 3rem;
-         padding-top: 4rem;
-      }
+        .page-title {
+            margin-top: 3rem;
+            padding-top: 4rem;
+        }
+
         .form-container {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
@@ -151,7 +156,8 @@
                 <div class="col-lg-8 col-xl-7">
                     <div class="form-container shadow-lg">
                         <div class="form-body p-lg-5 p-4">
-                            <form id="subscriptionForm" action="{{ route('subscriptions.store') }}" method="POST" novalidate>
+                            <form id="subscriptionForm" action="{{ route('subscriptions.store') }}" method="POST"
+                                novalidate>
                                 @csrf
 
                                 <!-- Personal Information -->
@@ -161,7 +167,7 @@
                                     </h4>
 
                                     <div class="row">
-                                        <div class="col-lg-6 mb-3">
+                                        <div class="col-lg-6 mb-5">
                                             <label class="form-label fw-semibold" for="fullName">Full Name <span
                                                     class="text-danger">*</span></label>
                                             <div class="input-group">
@@ -177,7 +183,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-lg-6 mb-3">
+                                        <div class="col-lg-6 mb-5">
                                             <label class="form-label fw-semibold" for="phoneNumber">Active Phone Number
                                                 <span class="text-danger">*</span></label>
                                             <div class="input-group">
@@ -194,6 +200,43 @@
                                                 <div class="invalid-feedback">Please provide a valid phone number.</div>
                                             @enderror
                                         </div>
+
+                                        <!-- Address Cascading Select -->
+                                        <div class="mb-5">
+                                            <h4 class="section-title mb-3"><i
+                                                    class="bi bi-geo-alt text-primary me-2"></i>Delivery Address</h4>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label>Province *</label>
+                                                    <select class="form-select" id="province" name="province"
+                                                        required></select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>City / Regency *</label>
+                                                    <select class="form-select" id="city" name="city" required
+                                                        disabled></select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>District (Kecamatan) *</label>
+                                                    <select class="form-select" id="district" name="district" required
+                                                        disabled></select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>Sub-district (Kelurahan) *</label>
+                                                    <select class="form-select" id="sub_district" name="sub_district"
+                                                        required disabled></select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label>Postal Code *</label>
+                                                    <input class="form-control" name="postal_code" required readonly />
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label>Street Address *</label>
+                                                    <textarea class="form-control" name="street_address" required></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
 
@@ -231,7 +274,8 @@
                                                 <div class="p-4 text-center">
                                                     <i class="bi bi-lightning-charge display-4 text-warning mb-3"></i>
                                                     <h5 class="fw-bold mb-2">Protein Plan</h5>
-                                                    <p class="text-muted small mb-3">High-protein meals for active lifestyle
+                                                    <p class="text-muted small mb-3">High-protein meals for active
+                                                        lifestyle
                                                     </p>
                                                     <div class="plan-price h4 text-primary mb-0">Rp40.000</div>
                                                     <small class="text-muted">per meal</small>
@@ -614,9 +658,55 @@
             // Initialize price summary on page load
             updatePriceSummary();
         });
+    </script>
 
+    <script>
+        $(() => {
+            $('#province, #city, #district, #sub_district').select2({
+                placeholder: 'Select...',
+                allowClear: true,
+                width: '100%'
+            });
+
+            function loadList(path, target) {
+                const $sel = $(target);
+                $sel.prop('disabled', true).empty().append('<option></option>');
+                return $.getJSON(path, data => {
+                    data.forEach(i => $sel.append(new Option(i.name, i.name)));
+                    $sel.prop('disabled', false);
+                }).fail(() => console.error('Load failed', path));
+            }
+
+            loadList('/data-indonesia/provinsi.json', '#province');
+
+            $('#province').on('change', function() {
+                const id = $(this).find(':selected').data('id') || $('#province option:selected').index();
+                $('#city,#district,#sub_district').empty().trigger('change').prop('disabled', true);
+                loadList(`{{ asset('data-indonesia/kabupaten') }}/${id}.json`, '#city');
+            });
+
+            $('#city').on('change', function() {
+                const id = $('#city option:selected').data('id');
+                $('#district,#sub_district').empty().trigger('change').prop('disabled', true);
+                loadList(`{{ asset('data-indonesia/kecamatan') }}/${id}.json`, '#district');
+            });
+
+            $('#district').on('change', function() {
+                const id = $('#district option:selected').data('id');
+                $('#sub_district').empty().trigger('change').prop('disabled', true);
+                loadList(`{{ asset('data-indonesia/kelurahan') }}/${id}.json`, '#sub_district');
+            });
+
+            $('#sub_district').on('change', function() {
+                const code = $('#sub_district option:selected').data('postal_code');
+                $('[name="postal_code"]').val(code);
+            });
+        });
+    </script>
+
+    <script>
         // Alert handling
-        @if(session('success'))
+        @if (session('success'))
             Swal.fire({
                 icon: 'success',
                 title: 'Berhasil!',
@@ -626,7 +716,7 @@
             });
         @endif
 
-        @if(session('error'))
+        @if (session('error'))
             Swal.fire({
                 icon: 'error',
                 title: 'Gagal!',

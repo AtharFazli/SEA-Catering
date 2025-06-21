@@ -42,10 +42,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth'])->prefix('dash')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/subscriptions/pause/{id}', [SubscriptionController::class, 'pause'])->name('subscriptions.pause');
     Route::post('/subscriptions/pause', [SubscriptionController::class, 'submitPause'])->name('subscriptions.pause.submit');
     Route::delete('/subscriptions/cancel/{id}', [SubscriptionController::class, 'cancel'])->name('subscriptions.cancel');
 });
+
 
 
 require __DIR__ . '/auth.php';
