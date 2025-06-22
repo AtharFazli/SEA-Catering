@@ -11,7 +11,6 @@ use App\Http\Controllers\SubscriptionController;
 Route::get('/', function () {
     $testimonials = Testimonial::orderBy('id', 'asc')->get();
     return view('landing', compact('testimonials'));
-
 })->name('home');
 
 
@@ -24,10 +23,15 @@ Route::get('/contact', function () {
 
 Route::get('mealplans', [MealPlanController::class, 'index'])->name('mealplans.index');
 
-Route::get('/subscriptions', function () {
-    return view('user.subs');
-})->name('subscriptions');
-Route::post('/subscriptions', [SubscriptionController::class, 'store'])->name('subscriptions.store');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/subscriptions', function () {
+        return view('user.subs');
+    })->name('subscriptions');
+    Route::post('/subscriptions', [SubscriptionController::class, 'store'])->name('subscriptions.store');
+});
+
+
 
 
 

@@ -15,14 +15,14 @@ class DashboardController extends Controller
     // Admin bisa melihat semua, user hanya miliknya
     if ($user->hasRole('admin')) {
         $subscriptions = Subscription::with(['user', 'plan', 'mealTypes', 'deliveryDays'])
-            ->latest()
+            ->orderBy('id', 'desc')
             ->get();
     } else {
-        $subscriptions = $user->subscriptions()
-            ->with(['plan', 'mealTypes', 'deliveryDays'])
-            ->where('user_id', $user->id)
-            ->latest()
-            ->get();
+        $subscriptions = Subscription::with(['plan', 'mealTypes', 'deliveryDays'])
+        ->where('user_id', auth()->id())
+        ->orderBy('id', 'desc')
+        ->get();
+
     }
 
     // return $subscriptions;

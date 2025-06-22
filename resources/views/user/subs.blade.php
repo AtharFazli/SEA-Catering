@@ -167,7 +167,7 @@
                                     </h4>
 
                                     <div class="row">
-                                        <div class="col-lg-6 mb-5">
+                                        <div class="col-lg-6 mb-3">
                                             <label class="form-label fw-semibold" for="fullName">Full Name <span
                                                     class="text-danger">*</span></label>
                                             <div class="input-group">
@@ -183,7 +183,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-lg-6 mb-5">
+                                        <div class="col-lg-6 mb-3">
                                             <label class="form-label fw-semibold" for="phoneNumber">Active Phone Number
                                                 <span class="text-danger">*</span></label>
                                             <div class="input-group">
@@ -201,38 +201,40 @@
                                             @enderror
                                         </div>
 
-                                        <!-- Address Cascading Select -->
+                                        <!-- Address Manual Input -->
                                         <div class="mb-5">
-                                            <h4 class="section-title mb-3"><i
-                                                    class="bi bi-geo-alt text-primary me-2"></i>Delivery Address</h4>
+                                            <h4 class="section-title mb-3">
+                                                <i class="bi bi-geo-alt text-primary me-2"></i>Delivery Address
+                                            </h4>
                                             <div class="row g-3">
                                                 <div class="col-md-6">
                                                     <label>Province *</label>
-                                                    <select class="form-select" id="province" name="province"
-                                                        required></select>
+                                                    <input class="form-control" name="province" type="text"
+                                                        placeholder="Enter province" required>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>City / Regency *</label>
-                                                    <select class="form-select" id="city" name="city" required
-                                                        disabled></select>
+                                                    <input class="form-control" name="city" type="text"
+                                                        placeholder="Enter city" required>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>District (Kecamatan) *</label>
-                                                    <select class="form-select" id="district" name="district" required
-                                                        disabled></select>
+                                                    <input class="form-control" name="district" type="text"
+                                                        placeholder="Enter district" required>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>Sub-district (Kelurahan) *</label>
-                                                    <select class="form-select" id="sub_district" name="sub_district"
-                                                        required disabled></select>
+                                                    <input class="form-control" name="sub_district" type="text"
+                                                        placeholder="Enter sub-district" required>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <label>Postal Code *</label>
-                                                    <input class="form-control" name="postal_code" required readonly />
+                                                    <input class="form-control" name="postal_code" type="text"
+                                                        placeholder="Enter postal code" required>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <label>Street Address *</label>
-                                                    <textarea class="form-control" name="street_address" required></textarea>
+                                                    <textarea class="form-control" name="street_address" placeholder="Enter full address" required></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -657,50 +659,6 @@
 
             // Initialize price summary on page load
             updatePriceSummary();
-        });
-    </script>
-
-    <script>
-        $(() => {
-            $('#province, #city, #district, #sub_district').select2({
-                placeholder: 'Select...',
-                allowClear: true,
-                width: '100%'
-            });
-
-            function loadList(path, target) {
-                const $sel = $(target);
-                $sel.prop('disabled', true).empty().append('<option></option>');
-                return $.getJSON(path, data => {
-                    data.forEach(i => $sel.append(new Option(i.name, i.name)));
-                    $sel.prop('disabled', false);
-                }).fail(() => console.error('Load failed', path));
-            }
-
-            loadList('/data-indonesia/provinsi.json', '#province');
-
-            $('#province').on('change', function() {
-                const id = $(this).find(':selected').data('id') || $('#province option:selected').index();
-                $('#city,#district,#sub_district').empty().trigger('change').prop('disabled', true);
-                loadList(`{{ asset('data-indonesia/kabupaten') }}/${id}.json`, '#city');
-            });
-
-            $('#city').on('change', function() {
-                const id = $('#city option:selected').data('id');
-                $('#district,#sub_district').empty().trigger('change').prop('disabled', true);
-                loadList(`{{ asset('data-indonesia/kecamatan') }}/${id}.json`, '#district');
-            });
-
-            $('#district').on('change', function() {
-                const id = $('#district option:selected').data('id');
-                $('#sub_district').empty().trigger('change').prop('disabled', true);
-                loadList(`{{ asset('data-indonesia/kelurahan') }}/${id}.json`, '#sub_district');
-            });
-
-            $('#sub_district').on('change', function() {
-                const code = $('#sub_district option:selected').data('postal_code');
-                $('[name="postal_code"]').val(code);
-            });
         });
     </script>
 
