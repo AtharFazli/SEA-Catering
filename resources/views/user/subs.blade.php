@@ -218,12 +218,12 @@
                                                         placeholder="Enter city" required>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label>District (Kecamatan) *</label>
+                                                    <label>District *</label>
                                                     <input class="form-control" name="district" type="text"
                                                         placeholder="Enter district" required>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label>Sub-district (Kelurahan) *</label>
+                                                    <label>Sub-district *</label>
                                                     <input class="form-control" name="sub_district" type="text"
                                                         placeholder="Enter sub-district" required>
                                                 </div>

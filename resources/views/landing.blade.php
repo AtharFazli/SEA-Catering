@@ -480,7 +480,7 @@
         @if(session('success'))
             Swal.fire({
                 icon: 'success',
-                title: 'Berhasil!',
+                title: 'Success!',
                 text: '{{ session('success') }}',
                 timer: 3000,
                 showConfirmButton: false
@@ -490,7 +490,7 @@
         @if(session('error'))
             Swal.fire({
                 icon: 'error',
-                title: 'Gagal!',
+                title: 'Error!',
                 text: '{{ session('error') }}',
                 timer: 3000,
                 showConfirmButton: false

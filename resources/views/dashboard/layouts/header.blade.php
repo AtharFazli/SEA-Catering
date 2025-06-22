@@ -210,11 +210,11 @@
     document.getElementById('logoutBtn').addEventListener('click', function (e) {
         e.preventDefault();
         Swal.fire({
-            title: 'Yakin ingin logout?',
+            title: 'Are you sure want to logout?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Logout',
-            cancelButtonText: 'Batal',
+            cancelButtonText: 'Cancel',
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {

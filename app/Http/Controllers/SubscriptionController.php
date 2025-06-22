@@ -33,18 +33,18 @@ class SubscriptionController extends Controller
         ]);
 
 
-            $subscription = Subscription::create([
-                'user_id'           => Auth::id(),
-                'plan_id'           => $this->getPlanId($request->plan),
-                'phone_number'      => $request->phone_number,
-                'province'          => $request->province,
-                'city'              => $request->city,
-                'district'          => $request->district,
-                'sub_district'      => $request->sub_district,
-                'postal_code'       => $request->postal_code,
-                'street_address'    => $request->street_address,
-                'allergies'         => $request->allergies
-            ]);
+        $subscription = Subscription::create([
+            'user_id'           => Auth::id(),
+            'plan_id'           => $this->getPlanId($request->plan),
+            'phone_number'      => $request->phone_number,
+            'province'          => $request->province,
+            'city'              => $request->city,
+            'district'          => $request->district,
+            'sub_district'      => $request->sub_district,
+            'postal_code'       => $request->postal_code,
+            'street_address'    => $request->street_address,
+            'allergies'         => $request->allergies
+        ]);
 
 
         // Simpan meal types
@@ -89,7 +89,11 @@ class SubscriptionController extends Controller
 
     public function cancel($id)
     {
-        $siuu = Subscription::findOrFail($id)->update(['status' => 'cancelled']);
-        return back()->with('success', 'Langganan berhasil dibatalkan.');
+        Subscription::findOrFail($id)->update([
+            'status' => 'cancelled',
+            'ended_at' => now(),
+        ]);
+
+        return back()->with('success', 'Subscription successfully cancelled.');
     }
 }

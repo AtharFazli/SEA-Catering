@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth'])->prefix('dash')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/export-csv', [DashboardController::class, 'exportCsv'])->name('admin.export.csv')->middleware('role:admin');
     Route::post('/subscriptions/pause', [SubscriptionController::class, 'submitPause'])->name('subscriptions.pause.submit');
     Route::delete('/subscriptions/cancel/{id}', [SubscriptionController::class, 'cancel'])->name('subscriptions.cancel');
 });

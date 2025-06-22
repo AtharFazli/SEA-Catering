@@ -26,6 +26,8 @@ return new class extends Migration
             $table->enum('status', ['active', 'paused', 'cancelled'])->default('active');
             $table->date('pause_start')->nullable();
             $table->date('pause_end')->nullable();
+            $table->timestamp('ended_at')->nullable();
+            $table->timestamp('reactivated_at')->nullable();
             $table->timestamps();
         });
     }

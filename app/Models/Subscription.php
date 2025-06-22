@@ -17,7 +17,9 @@ class Subscription extends Model
         'street_address',
         'plan_id', 
         'status', 
-        'allergies'
+        'allergies',
+        'ended_at', 
+        'reactivated_at'
     ];
 
     public function user() {

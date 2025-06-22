@@ -26,6 +26,8 @@
         rel="stylesheet" integrity="sha384-mKvOPIKfWT98k63t2sHYATN7tVLpjBWgEb8IJVzlccZq40HqKyLvyDudA2/gtOWG"
         crossorigin="anonymous">
 
+        @stack('styles')
+
 </head>
 
 <body id="page-top">
@@ -69,7 +71,6 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('/dashboard/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -84,8 +85,8 @@
     <script src="{{ asset('/dashboard/vendor/chart.js/Chart.min.js') }}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{ asset('/dashboard/js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('/dashboard/js/demo/chart-pie-demo.js') }}"></script>
+    {{-- <script src="{{ asset('/dashboard/js/demo/chart-area-demo.js') }}"></script>
+    <script src="{{ asset('/dashboard/js/demo/chart-pie-demo.js') }}"></script> --}}
 
     {{-- sweetalert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

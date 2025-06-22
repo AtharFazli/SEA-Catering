@@ -9,34 +9,34 @@
 
     <div class="card mb-4 shadow">
         <div class="card-header d-flex justify-content-between py-3">
-            <h6 class="font-weight-bold text-primary m-0">Langganan Aktif</h6>
+            <h6 class="font-weight-bold text-primary m-0">Active Subscriptions</h6>
         </div>
         <div class="card-body">
             @include('dashboard.layouts.error')
 
             @if ($subscriptions->isEmpty())
-                <p>Tidak ada langganan aktif.</p>
+                <p>There's no active subscription.</p>
             @else
                 <div class="table-responsive">
                     <table class="table-bordered table" id="datatable">
                         <thead>
                             <tr>
                                 @role('admin')
-                                <th>No</th>
+                                    <th>No</th>
                                 @endrole
-                                <th>Nama Paket</th>
-                                <th>Jenis Makanan</th>
-                                <th>Hari Kirim</th>
-                                <th>Total Harga</th>
+                                <th>Plan's Name</th>
+                                <th>Meal Types</th>
+                                <th>Delivery Days</th>
+                                <th>Total Price</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($subscriptions as $sub)
-                            <tr>
+                                <tr>
                                     @role('admin')
-                                    <td>{{ $loop->iteration }}. </td>
+                                        <td>{{ $loop->iteration }}. </td>
                                     @endrole
                                     <td>{{ $sub->plan->name }}</td>
                                     <td>{{ $sub->mealTypes->pluck('name')->implode(', ') }}</td>
@@ -47,20 +47,27 @@
                                     <td>
                                         <span class="badge badge-{{ $sub->status == 'active' ? 'success' : 'secondary' }}">
                                             {{ ucfirst($sub->status) }}
+                                            @if ($sub->status == 'paused')
+                                                {{ '(' . $sub->pause_start . ' - ' . $sub->pause_end . ')' }}
+                                            @endif
                                         </span>
                                     </td>
                                     <td>
-                                        <button class="btn btn-warning" data-toggle="modal" data-target="#pauseModal"
-                                            onclick="document.getElementById('pause-subscription-id').value = '{{ $sub->id }}'">
-                                            Pause
-                                        </button>
+                                        @if ($sub->status == 'active')
+                                            <button class="btn btn-warning btn-sm" data-toggle="modal"
+                                                data-target="#pauseModal"
+                                                onclick="document.getElementById('pause-subscription-id').value = '{{ $sub->id }}'">
+                                                Pause
+                                            </button>
 
-                                        <form class="d-inline cancel-subscription-form" data-id="{{ $sub->id }}"
-                                            action="{{ route('subscriptions.cancel', $sub->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger btn-sm">Cancel</button>
-                                        </form>
+                                            <form class="d-inline cancel-subscription-form" data-id="{{ $sub->id }}"
+                                                action="{{ route('subscriptions.cancel', $sub->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger btn-sm">Cancel</button>
+                                            </form>
+                                        @else
+                                        @endif
 
                                     </td>
                                 </tr>
@@ -153,7 +160,7 @@
             @if (session('success'))
                 Swal.fire({
                     icon: 'success',
-                    title: 'Berhasil!',
+                    title: 'Success!',
                     text: '{{ session('success') }}',
                     timer: 3000,
                     showConfirmButton: false
@@ -181,14 +188,14 @@
                     e.preventDefault(); // stop default form
 
                     Swal.fire({
-                        title: 'Yakin?',
-                        text: "Langganan akan dibatalkan secara permanen.",
+                        title: 'Warning?',
+                        text: "Are you sure want to cancel this subscription.",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#d33',
                         cancelButtonColor: '#6c757d',
-                        confirmButtonText: 'Ya, batalkan!',
-                        cancelButtonText: 'Batal'
+                        confirmButtonText: 'Yes, cancel!',
+                        cancelButtonText: 'Cancel'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             form.submit(); // submit form kalau OK

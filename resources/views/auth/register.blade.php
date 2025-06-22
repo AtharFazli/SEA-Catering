@@ -110,7 +110,7 @@
                 </svg>
             </div>
             <h1 class="mb-2 text-3xl font-bold text-gray-900">SEA Catering</h1>
-            <p class="text-gray-600" id="headerSubtitle">Selamat datang di SEA Catering</p>
+            <p class="text-gray-600" id="headerSubtitle">Welcome to SEA Catering</p>
         </div>
 
         <!-- Auth Form Container -->
@@ -118,7 +118,8 @@
             <!-- Form Header -->
             <div class="mb-6 text-center">
                 <h2 class="mb-2 text-2xl font-bold text-gray-900" id="formTitle">Register</h2>
-                <p class="text-gray-600" id="formSubtitle">Masuk ke akun Anda untuk melanjutkan</p>
+                <p class="text-gray-600" id="formSubtitle">Register your account now</p>
+                @include('dashboard.layouts.error')
             </div>
 
             <!-- Error Messages -->
@@ -145,7 +146,7 @@
                         </svg>
                         <input
                             class="form-input w-full rounded-lg border border-gray-300 bg-white py-3 pl-10 pr-4 focus:border-transparent focus:ring-2 focus:ring-blue-500"
-                            id="name" name="name" type="text" placeholder="Nama lengkap" />
+                            id="name" name="name" type="text" placeholder="Full name" />
                     </div>
                     <div class="mt-1 hidden text-sm text-red-600" id="nameError">
                         <svg class="mr-1 inline h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -224,7 +225,7 @@
                         <input
                             class="form-input w-full rounded-lg border border-gray-300 bg-white py-3 pl-10 pr-12 focus:border-transparent focus:ring-2 focus:ring-blue-500"
                             id="password_confirmation" name="password_confirmation" type="password"
-                            placeholder="Konfirmasi password" />
+                            placeholder="Confirm password" />
                         <button
                             class="absolute right-3 top-1/2 -translate-y-1/2 transform text-gray-400 hover:text-gray-600"
                             id="toggleConfirmPassword" type="button">
@@ -258,21 +259,21 @@
 
                 <!-- Password Requirements (Register Only) -->
                 <div class="rounded-lg bg-blue-50 p-3" id="passwordRequirements">
-                    <p class="mb-2 text-sm font-medium text-blue-800">Password harus:</p>
+                    <p class="mb-2 text-sm font-medium text-blue-800">Password must:</p>
                     <div class="space-y-1">
                         <div class="flex items-center text-sm text-blue-700">
                             <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7"></path>
                             </svg>
-                            Minimal 6 karakter
+                            Min 6 character
                         </div>
                         <div class="flex items-center text-sm text-blue-700">
                             <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7"></path>
                             </svg>
-                            Mudah diingat tapi sulit ditebak
+                            Easy to remember but hard to guess
                         </div>
                     </div>
                 </div>
@@ -292,30 +293,20 @@
                     <div class="w-full border-t border-gray-300"></div>
                 </div>
                 <div class="relative flex justify-center text-sm">
-                    <span class="bg-white px-2 text-gray-500">atau</span>
+                    <span class="bg-white px-2 text-gray-500">or</span>
                 </div>
             </div>
 
             <!-- Switch Auth Mode -->
             <div class="mt-6 text-center">
                 <p class="text-gray-600">
-                    <span id="switchText">Sudah punya akun?</span>
+                    <span id="switchText">Already have an account?</span>
                     <a class="font-semibold text-blue-600 transition-colors duration-200 hover:text-blue-800"
-                        href="{{ route('login') }}">Masuk sekarang</a>
+                        href="{{ route('login') }}">Login now</a>
                 </p>
             </div>
         </div>
 
-        <!-- Terms and Privacy -->
-        <div class="mt-6 text-center">
-            <p class="text-xs text-gray-500">
-                Dengan <span id="actionText">masuk</span>, Anda menyetujui
-                <button class="text-blue-600 underline hover:text-blue-800">Syarat & Ketentuan</button>
-                dan
-                <button class="text-blue-600 underline hover:text-blue-800">Kebijakan Privasi</button>
-                kami.
-            </p>
-        </div>
     </div>
 
     <script>
@@ -402,15 +393,15 @@
 
             if (score <= 1) {
                 passwordStrengthBar.classList.add('strength-weak');
-                passwordStrengthText.textContent = 'Lemah';
+                passwordStrengthText.textContent = 'Weak';
                 passwordStrengthText.classList.add('text-red-600');
             } else if (score === 2 || score === 3) {
                 passwordStrengthBar.classList.add('strength-medium');
-                passwordStrengthText.textContent = 'Sedang';
+                passwordStrengthText.textContent = 'Medium';
                 passwordStrengthText.classList.add('text-yellow-600');
             } else {
                 passwordStrengthBar.classList.add('strength-strong');
-                passwordStrengthText.textContent = 'Kuat';
+                passwordStrengthText.textContent = 'Strong';
                 passwordStrengthText.classList.add('text-green-600');
             }
         });
