@@ -1,4 +1,4 @@
-{{-- @extends('landing.layouts.master')
+@extends('landing.layouts.master')
 
 @section('title')
     SEA Catering | Meal Plans
@@ -604,4 +604,4 @@
     @endforeach
 
     
-@endsection --}}
+@endsection

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Models\Testimonial;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,7 @@ Route::post('/testimonial', [TestimonialController::class, 'store'])->name('test
 Route::get('/contact', function () {
     return view('user.contact');
 })->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('mealplans', [MealPlanController::class, 'index'])->name('mealplans.index');
 

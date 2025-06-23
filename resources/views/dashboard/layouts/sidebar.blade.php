@@ -25,6 +25,13 @@
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Add Subscription</span></a>
         </li>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('contact') }}">
+                <i class="fas fa-fw fa-phone"></i>
+                <span>Contact Us</span></a>
+        </li>
     @endrole
 
     @role('admin')

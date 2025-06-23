@@ -1,4 +1,4 @@
-{{-- <!-- Contact.blade.php -->
+<!-- Contact.blade.php -->
 @extends('landing.layouts.master')
 
 @section('title')
@@ -54,7 +54,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-bold" for="phone">Phone Number</label>
-                                <input class="form-control @error('phone') is-invalid @enderror" id="phone"
+                                <input class="form-control @error('phone') is-invalid @enderror" id="phoneNumber"
                                     name="phone" type="tel" value="{{ old('phone') }}" placeholder="Enter your phone number" required> 
                                 @error('phone')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -248,4 +248,31 @@
             </div>
         </div>
     </div>
-@endsection --}}
+@endsection
+
+@push('scripts')
+    <script>
+        document.getElementById('phoneNumber').addEventListener('input', function(e) {
+                let input = e.target.value;
+
+                // Remove all non-digit characters, except leading "+"
+                input = input.replace(/[^+\d]/g, '');
+
+                // Normalize phone number
+                if (input.startsWith('0')) {
+                    input = '+62' + input.slice(1);
+                } else if (input.startsWith('62')) {
+                    input = '+62' + input.slice(2);
+                } else if (!input.startsWith('+62')) {
+                    input = '+62' + input.replace(/^\+?/, '');
+                }
+
+                // Limit length to avoid overflow (e.g., 15 digits max for Indonesian numbers)
+                if (input.length > 15) {
+                    input = input.slice(0, 15);
+                }
+
+                e.target.value = input;
+            });
+    </script>
+@endpush
