@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Http;
 
 class SubscriptionController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         // return $request->all();
         $request->validate([
@@ -95,5 +95,20 @@ class SubscriptionController extends Controller
         ]);
 
         return back()->with('success', 'Subscription successfully cancelled.');
+    }
+
+    public function reactivate($id)
+    {
+        $subscription = Subscription::where('id', $id)->firstOrFail();
+
+        // Optional: Cek apakah user berhak mengubah (misalnya admin atau pemilik)
+        if (auth()->user()->hasRole('admin') || $subscription->user_id == auth()->id()) {
+            $subscription->status = 'active';
+            $subscription->save();
+
+            return back()->with('success', 'Subscription has been reactivated.');
+        }
+
+        return back()->with('error', 'Unauthorized action.');
     }
 }

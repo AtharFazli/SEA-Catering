@@ -131,6 +131,20 @@ class DashboardController extends Controller
     }
 
 
+    public function subsTable()
+    {
+        $subscriptions = Subscription::with(['plan', 'mealTypes', 'deliveryDays'])
+        ->where('status', '!=', 'cancelled')
+            ->orderBy('id', 'desc')
+            ->get();
+
+            $cancelledSubscriptions = Subscription::where('status', 'cancelled')
+            ->with(['plan', 'mealTypes', 'deliveryDays'])
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view('dashboard.admin.table', compact('subscriptions', 'cancelledSubscriptions'));
+    }
 
     public function exportCsv(Request $request): StreamedResponse
     {

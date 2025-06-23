@@ -37,9 +37,9 @@
     @role('admin')
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link" href="index.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Analytics</span></a>
+            <a class="nav-link" href="{{ route('dashboard.table') }}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Subs Tables</span></a>
         </li>
     @endrole
 
