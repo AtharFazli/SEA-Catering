@@ -82,7 +82,31 @@ class DashboardController extends Controller
                 $dailyData[] = $count;
             }
 
+            $plans = Subscription::with(['plan', 'mealTypes', 'deliveryDays'])
+                ->where('status', 'active')
+                ->whereDate('created_at', '<=', $end)
+                ->where(function ($query) use ($start) {
+                    $query->whereNull('ended_at')
+                        ->orWhereDate('ended_at', '>=', $start);
+                })
+                ->get()
+                ->groupBy(fn($sub) => $sub->plan->name ?? 'Unknown');
 
+            $planLabels = [];
+            $planRevenue = [];
+
+            foreach ($plans as $planName => $subs) {
+                $total = $subs->sum(function ($sub) {
+                    $pricePerMeal = optional($sub->plan)->price_per_meal ?? 0;
+                    return $pricePerMeal * $sub->mealTypes->count() * $sub->deliveryDays->count() * 4.3;
+                });
+
+                $planLabels[] = $planName;
+                $planRevenue[] = round($total);
+            }
+
+
+            // return $planRevenue;
             return view('dashboard.admin.index', compact(
                 'start',
                 'end',
@@ -93,7 +117,9 @@ class DashboardController extends Controller
                 'chartLabels',
                 'chartData',
                 'dailyLabels',
-                'dailyData'
+                'dailyData',
+                'planLabels',
+                'planRevenue'
             ));
         } else {
             $subscriptions = Subscription::with(['plan', 'mealTypes', 'deliveryDays'])
