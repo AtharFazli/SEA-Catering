@@ -4,24 +4,740 @@
     SEA Catering
 @endsection
 
+@push('styles')
+    <style>
+        /* Enhanced Hero Section - KEEPING ORIGINAL COLORS */
+        .hero.section {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background Enhancements - No color changes */
+        .hero-bg {
+            z-index: -3;
+        }
+
+        .hero-bg-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
+        }
+
+        .hero:hover .hero-bg-img {
+            transform: scale(1.05);
+        }
+
+        .hero-gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            z-index: -2;
+        }
+
+        /* Food Pattern Overlay */
+        .food-pattern-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
+        .pattern-circle {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            animation: patternFloat 8s ease-in-out infinite;
+        }
+
+        .pattern-1 {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .pattern-2 {
+            top: 20%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+
+        .pattern-3 {
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        .pattern-4 {
+            top: 60%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+
+        .pattern-5 {
+            bottom: 20%;
+            right: 25%;
+            animation-delay: 4s;
+        }
+
+        .pattern-6 {
+            top: 40%;
+            left: 5%;
+            animation-delay: 5s;
+        }
+
+        @keyframes patternFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(20px, -20px) rotate(120deg);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) rotate(240deg);
+            }
+        }
+
+        /* Typography - Keep original colors */
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .hero-title-line {
+            display: block;
+            font-size: 0.6em;
+            font-weight: 400;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero-title-brand {
+            display: block;
+            background: linear-gradient(45deg, #333, #666);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title-underline {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #333, transparent);
+            animation: slideIn 1s ease-out 0.5s both;
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100px;
+            }
+        }
+
+        /* Typewriter Effect */
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            opacity: 0.9;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid;
+            white-space: nowrap;
+            animation: typing 4s steps(60, end), blink-caret 0.75s step-end infinite;
+            animation-delay: 1s;
+            animation-fill-mode: both;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent;
+            }
+
+            50% {
+                border-color: currentColor;
+            }
+        }
+
+        /* Hero Stats */
+        .hero-stats {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 800;
+            color: inherit;
+            line-height: 1;
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 0.25rem;
+        }
+
+        .stat-divider {
+            opacity: 0.3;
+            font-size: 1.5rem;
+        }
+
+        /* Enhanced CTA Button - Keep original style */
+        .hero-cta-wrapper {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .btn-get-started-enhanced {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #333, #555);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 1rem;
+        }
+
+        .btn-get-started-enhanced:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            color: white;
+        }
+
+        .btn-text {
+            position: relative;
+            z-index: 2;
+            margin-right: 10px;
+        }
+
+        .btn-icon {
+            transition: transform 0.3s ease;
+            z-index: 2;
+            position: relative;
+        }
+
+        .btn-get-started-enhanced:hover .btn-icon {
+            transform: translateX(5px);
+        }
+
+        .btn-ripple {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-get-started-enhanced:hover .btn-ripple {
+            left: 100%;
+        }
+
+        .cta-note {
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        /* Food Showcase Grid - Replacing original hero image */
+        .food-showcase {
+            position: relative;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .food-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            aspect-ratio: 1;
+            background: #f8f9fa;
+        }
+
+        .food-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .food-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .food-item:hover .food-img {
+            transform: scale(1.1);
+        }
+
+        .food-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .food-item:hover .food-overlay {
+            transform: translateY(0);
+        }
+
+        .food-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        /* Floating Food Icons */
+        .floating-food-icons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            animation: iconFloat 6s ease-in-out infinite;
+        }
+
+        .icon-1 {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .icon-2 {
+            top: 20%;
+            right: 15%;
+            animation-delay: 1.5s;
+        }
+
+        .icon-3 {
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 3s;
+        }
+
+        .icon-4 {
+            bottom: 20%;
+            right: 10%;
+            animation-delay: 4.5s;
+        }
+
+        @keyframes iconFloat {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(180deg);
+            }
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.7;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-mouse {
+            width: 24px;
+            height: 40px;
+            border: 2px solid currentColor;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .scroll-wheel {
+            width: 4px;
+            height: 8px;
+            background: currentColor;
+            border-radius: 2px;
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scrollWheel 1.5s infinite;
+        }
+
+        @keyframes scrollWheel {
+            0% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(16px);
+            }
+        }
+
+        .scroll-text {
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        /* Animated Food Particles */
+        .food-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle-food {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.3;
+            animation: particleFloat 10s linear infinite;
+        }
+
+        .particle-food:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .particle-food:nth-child(2) {
+            left: 25%;
+            animation-delay: 2s;
+        }
+
+        .particle-food:nth-child(3) {
+            left: 45%;
+            animation-delay: 4s;
+        }
+
+        .particle-food:nth-child(4) {
+            left: 65%;
+            animation-delay: 6s;
+        }
+
+        .particle-food:nth-child(5) {
+            left: 80%;
+            animation-delay: 8s;
+        }
+
+        .particle-food:nth-child(6) {
+            left: 90%;
+            animation-delay: 10s;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.3;
+            }
+
+            90% {
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-stats {
+                gap: 1rem;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+
+            .food-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .btn-get-started-enhanced {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+
+            .floating-icon {
+                font-size: 1.5rem;
+            }
+
+            .pattern-circle {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-subtitle {
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-stats {
+                margin-bottom: 2rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero-cta-wrapper {
+                margin-bottom: 2rem;
+            }
+
+            .food-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-divider {
+                display: none;
+            }
+        }
+
+        /* Loading placeholder for images */
+        .food-item::before {
+            content: "🍽️";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            opacity: 0.3;
+            z-index: -1;
+        }
+    </style>
+@endpush
+
 @section('content')
     <!-- Hero Section -->
-    <section class="hero section" id="hero">
-        <div class="hero-bg">
-            <img src="{{ asset('/QuickStart/assets/img/hero-bg-light.webp') }}" alt="">
+    <section class="hero section position-relative overflow-hidden" id="hero">
+        <!-- Background with Food Theme -->
+        <div class="hero-bg position-absolute w-100 h-100">
+            <img class="hero-bg-img" src="{{ asset('img/bg-hero.jpg') }}" alt="SEA Catering Background">
+
+            <!-- Food Pattern Overlay -->
+            <div class="food-pattern-overlay">
+                <div class="pattern-circle pattern-1">🍽️</div>
+                <div class="pattern-circle pattern-2">🥗</div>
+                <div class="pattern-circle pattern-3">🍜</div>
+                <div class="pattern-circle pattern-4">🥘</div>
+                <div class="pattern-circle pattern-5">🍱</div>
+                <div class="pattern-circle pattern-6">🧑‍🍳</div>
+            </div>
+
+            <div class="hero-gradient-overlay"></div>
         </div>
-        <div class="container text-center">
-            <div class="d-flex flex-column justify-content-center align-items-center">
-                <h1 data-aos="fade-up">Welcome to <span>SEA Catering</span></h1>
-                <p data-aos="fade-up" data-aos-delay="100">Healthy Meals, Anytime, Anywhere<br></p>
-                <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-                    <a class="btn-get-started" href="#about">Get Yours Now</a>
+
+        <div class="position-relative container text-center">
+            <div class="d-flex flex-column justify-content-center align-items-center min-vh-100">
+                <h1 class="hero-title mb-4" data-aos="fade-up">
+                    <span class="hero-title-line">🍽️ Welcome to</span>
+                    <span class="hero-title-brand">SEA Catering</span>
+                    <div class="hero-title-underline"></div>
+                </h1>
+
+                <!-- Subtitle with Food Theme -->
+                <p class="hero-subtitle mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <span class="typewriter">🥗 Healthy Meals, Anytime, Anywhere • 🚚 Fast Delivery</span>
+                </p>
+
+                <!-- Food Stats -->
+                <div class="hero-stats" data-aos="fade-up" data-aos-delay="150">
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Happy Customers</span>
+                    </div>
+                    <div class="stat-divider">|</div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Menu Varieties</span>
+                    </div>
+                    <div class="stat-divider">|</div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Service</span>
+                    </div>
                 </div>
-                <img class="img-fluid hero-img" data-aos="zoom-out" data-aos-delay="300"
-                    src="{{ asset('/QuickStart/assets/img/hero-services-img.webp') }}" alt="">
+
+                <!-- CTA Button -->
+                <div class="hero-cta-wrapper" data-aos="fade-up" data-aos-delay="200">
+                    <a class="btn-get-started-enhanced" href="#about">
+                        <span class="btn-text">🛒 Get Yours Now</span>
+                        <div class="btn-ripple"></div>
+                        <i class="fas fa-arrow-right btn-icon"></i>
+                    </a>
+                </div>
+
+                <!-- Food Showcase -->
+                <div class="food-showcase" data-aos="zoom-out" data-aos-delay="300">
+                    <div class="food-grid">
+                        <!-- Replace original hero-services-img with food images -->
+                        <div class="food-item food-item-1">
+                            <img class="food-img" src="{{ asset('/img/salad.jpg') }}"
+                                alt="Fresh Healthy Salads">
+                            <div class="food-overlay">
+                                <span class="food-name">Fresh Salads</span>
+                            </div>
+                        </div>
+                        <div class="food-item food-item-2">
+                            <img class="food-img" src="{{ asset('/img/asian.jpg') }}"
+                                alt="Delicious Asian Cuisine">
+                            <div class="food-overlay">
+                                <span class="food-name">Asian Fusion</span>
+                            </div>
+                        </div>
+                        <div class="food-item food-item-3">
+                            <img class="food-img" src="{{ asset('/img/lunch-box.jpg') }}"
+                                alt="Premium Lunch Box">
+                            <div class="food-overlay">
+                                <span class="food-name">Lunch Boxes</span>
+                            </div>
+                        </div>
+                        <div class="food-item food-item-4">
+                            <img class="food-img" src="{{ asset('/img/catering.jpg') }}"
+                                alt="Premium Catering Set">
+                            <div class="food-overlay">
+                                <span class="food-name">Catering Sets</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Floating Food Icons -->
+                    <div class="floating-food-icons">
+                        <div class="floating-icon icon-1">🥗</div>
+                        <div class="floating-icon icon-2">🍜</div>
+                        <div class="floating-icon icon-3">🍱</div>
+                        <div class="floating-icon icon-4">🥘</div>
+                    </div>
+                </div>
+
+                <!-- Scroll Indicator -->
+                <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="500">
+                    <div class="scroll-mouse">
+                        <div class="scroll-wheel"></div>
+                    </div>
+                    <span class="scroll-text">Explore Our Menu</span>
+                </div>
             </div>
         </div>
 
+        <!-- Animated Food Particles -->
+        <div class="food-particles">
+            <div class="particle-food">🍽️</div>
+            <div class="particle-food">🥗</div>
+            <div class="particle-food">🍜</div>
+            <div class="particle-food">🍱</div>
+            <div class="particle-food">🥘</div>
+            <div class="particle-food">🧑‍🍳</div>
+        </div>
     </section><!-- /Hero Section -->
 
     <!-- Featured Services Section -->
@@ -58,7 +774,8 @@
                     <div class="service-item d-flex">
                         <div class="icon flex-shrink-0"><i class="bi bi-clipboard-data"></i></div>
                         <div>
-                            <h4 class="title"><a class="stretched-link" href="#">Detailed Nutritional Information</a>
+                            <h4 class="title"><a class="stretched-link" href="#">Detailed Nutritional
+                                    Information</a>
                             </h4>
                             <p class="description">Know exactly what you’re eating with transparent, easy-to-read
                                 nutritional breakdowns for every meal.</p>
@@ -130,15 +847,18 @@
             <div class="row gy-4">
 
                 <div class="col-xl-2 col-md-3 col-6 client-logo">
-                    <img class="img-fluid" src="{{ asset('/QuickStart/assets/img/clients/client-1.png') }}" alt="">
+                    <img class="img-fluid" src="{{ asset('/QuickStart/assets/img/clients/client-1.png') }}"
+                        alt="">
                 </div><!-- End Client Item -->
 
                 <div class="col-xl-2 col-md-3 col-6 client-logo">
-                    <img class="img-fluid" src="{{ asset('/QuickStart/assets/img/clients/client-2.png') }}" alt="">
+                    <img class="img-fluid" src="{{ asset('/QuickStart/assets/img/clients/client-2.png') }}"
+                        alt="">
                 </div><!-- End Client Item -->
 
                 <div class="col-xl-2 col-md-3 col-6 client-logo">
-                    <img class="img-fluid" src="{{ asset('/QuickStart/assets/img/clients/client-3.png') }}" alt="">
+                    <img class="img-fluid" src="{{ asset('/QuickStart/assets/img/clients/client-3.png') }}"
+                        alt="">
                 </div><!-- End Client Item -->
 
                 <div class="col-xl-2 col-md-3 col-6 client-logo">
@@ -334,7 +1054,7 @@
         <!-- Section Title -->
         <div class="section-title container" data-aos="fade-up">
             <h2>Testimonials</h2>
-            <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+            <p>What our customers say about SEA Catering</p>
         </div><!-- End Section Title -->
 
         <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -406,24 +1126,10 @@
 
             <div class="row gy-4 mt-1">
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-                    <img src="{{ asset('img/meal6.jpg') }}" alt="{{ asset('img/ingredients6.jpg') }}" width="500px">
+                    <img src="{{ asset('img/meal6.jpg') }}" alt="{{ asset('img/ingredients6.jpg') }}" class="img-fluid w-100 rounded">
                 </div>
 
                 <div class="col-lg-6">
-                    {{-- @if (session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('success') }}
-                            <button class="close" data-dismiss="alert" type="button">&times;</button>
-                        </div>
-                    @endif
-
-                    @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            {{ session('error') }}
-                            <button class="close" data-dismiss="alert" type="button">&times;</button>
-                        </div>
-                    @endif --}}
-
                     <form class="" data-aos="fade-up" data-aos-delay="400"
                         action="{{ route('testimonial.store') }}" method="post">
                         @csrf
@@ -474,10 +1180,9 @@
     </section><!-- /Testimonial Section -->
 @endsection
 
-
 @push('scripts')
     <script>
-        @if(session('success'))
+        @if (session('success'))
             Swal.fire({
                 icon: 'success',
                 title: 'Success!',
@@ -487,7 +1192,7 @@
             });
         @endif
 
-        @if(session('error'))
+        @if (session('error'))
             Swal.fire({
                 icon: 'error',
                 title: 'Error!',
@@ -519,6 +1224,35 @@
                     slidesPerView: 3,
                     spaceBetween: 30
                 }
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects for food items
+            const foodItems = document.querySelectorAll('.food-item');
+
+            foodItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.05)';
+                });
+
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Add click animation for CTA button
+            const ctaButton = document.querySelector('.btn-get-started-enhanced');
+            if (ctaButton) {
+                ctaButton.addEventListener('click', function(e) {
+                    const ripple = this.querySelector('.btn-ripple');
+                    ripple.style.left = '-100%';
+                    setTimeout(() => {
+                        ripple.style.left = '100%';
+                    }, 100);
+                });
             }
         });
     </script>

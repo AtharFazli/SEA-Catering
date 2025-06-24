@@ -5,6 +5,7 @@
             <img src="{{ asset('/QuickStart/assets/img/logo.png') }}" alt="">
             <h1 class="sitename">SEA Catering</h1>
         </a>
+        
 
         <nav class="navmenu mb-5" id="navmenu">
             <ul>

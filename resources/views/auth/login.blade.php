@@ -266,13 +266,6 @@
                     </div>
                 </div>
 
-                <!-- Forgot Password (Login Only) -->
-                <div class="text-right" id="forgotPassword">
-                    <button class="text-sm text-blue-600 transition-colors duration-200 hover:text-blue-800"
-                        type="button">
-                        Forget password?
-                    </button>
-                </div>
 
                 <!-- Submit Button -->
                 <button
