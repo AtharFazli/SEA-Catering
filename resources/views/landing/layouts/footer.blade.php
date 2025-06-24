@@ -11,9 +11,9 @@
         <div class="footer-contact pt-3">
           <p>Jl. Daan Mogot No.KM. 11 1, RT.12/RW.4, Kedaung Kali Angke, Kecamatan Cengkareng</p>
           <p>Kota Jakarta Barat, DKI Jakarta 11710</p>
-          <p class="mt-3"><strong>Manager:</strong> <span>Athar Fazli</span></p>
-          <p class="mt-3"><strong>Phone:</strong> <span>+62 878 1609 8777</span></p>
-          <p><strong>Email:</strong> <span>atharfs9@gmail.com</span></p>
+          <p class="mt-3"><strong>Manager:</strong> <span>Brian</span></p>
+          <p class="mt-3"><strong>Phone:</strong> <span>+62 812 3456 789</span></p>
+          <p><strong>Email:</strong> <span>seacatering@mail.com</span></p>
         </div>
         <div class="social-links d-flex mt-4">
           <a href="https://github.com/atharfazli/"><i class="bi bi-github"></i></a>

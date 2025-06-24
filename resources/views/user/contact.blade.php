@@ -142,7 +142,7 @@
                                 </div>
                                 <div>
                                     <h6 class="fw-bold text-dark">Phone</h6>
-                                    <p class="text-muted mb-0">+62 878 1609 8777</p>
+                                    <p class="text-muted mb-0">+62 812 3456 789</p>
                                 </div>
                             </div>
                         </div>
@@ -154,7 +154,7 @@
                                 </div>
                                 <div>
                                     <h6 class="fw-bold text-dark">Email</h6>
-                                    <p class="text-muted mb-0">atharfs9@gmail.com</p>
+                                    <p class="text-muted mb-0">seacatering@mail.com</p>
                                 </div>
                             </div>
                         </div>
