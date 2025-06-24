@@ -38,9 +38,7 @@
                     <table class="table-bordered table" id="datatable-cancelled">
                         <thead>
                             <tr>
-                                @role('admin')
-                                    <th>No</th>
-                                @endrole
+                                <th>No</th>
                                 <th>Plan's Name</th>
                                 <th>Meal Types</th>
                                 <th>Delivery Days</th>
@@ -52,9 +50,7 @@
                         <tbody>
                             @foreach ($cancelledSubscriptions as $cancel)
                                 <tr>
-                                    @role('admin')
-                                        <td>{{ $loop->iteration }}. </td>
-                                    @endrole
+                                    <td>{{ $loop->iteration }}. </td>
                                     <td>{{ $cancel->plan->name }}</td>
                                     <td>{{ $cancel->mealTypes->pluck('name')->implode(', ') }}</td>
                                     <td>{{ $cancel->deliveryDays->pluck('name')->implode(', ') }}</td>
@@ -63,7 +59,8 @@
                                     </td>
                                     <td>
                                         <span class="badge badge-danger">
-                                          {{ ucfirst($cancel->status) }}
+                                            {{ ucfirst($cancel->status) }}
+                                            {{ '(' . \Carbon\Carbon::parse($cancel->ended_at)->format('d-m-Y') . ')' }}
                                         </span>
                                     </td>
                                     <td>

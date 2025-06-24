@@ -79,6 +79,63 @@
         </div>
     </div>
 
+    <div class="card mb-4 shadow">
+        <div class="card-header d-flex justify-content-between py-3">
+            <h6 class="font-weight-bold text-primary m-0">Paused Subscriptions</h6>
+        </div>
+        <div class="card-body">
+            @include('dashboard.layouts.error')
+
+            @if ($pausedSubscriptions->isEmpty())
+                <p>There's no paused subscription.</p>
+            @else
+                <div class="table-responsive">
+                    <table class="table-bordered table" id="datatable-paused">
+                        <thead>
+                            <tr>
+                                @role('admin')
+                                    <th>No</th>
+                                @endrole
+                                <th>Plan's Name</th>
+                                <th>Meal Types</th>
+                                <th>Delivery Days</th>
+                                <th>Total Price</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($pausedSubscriptions as $sub)
+                                <tr>
+                                    @role('admin')
+                                        <td>{{ $loop->iteration }}. </td>
+                                    @endrole
+                                    <td>{{ $sub->plan->name }}</td>
+                                    <td>{{ $sub->mealTypes->pluck('name')->implode(', ') }}</td>
+                                    <td>{{ $sub->deliveryDays->pluck('name')->implode(', ') }}</td>
+                                    <td>
+                                        Rp{{ number_format($sub->plan->price_per_meal * $sub->mealTypes->count() * $sub->deliveryDays->count() * 4.3, 0, ',', '.') }}
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-warning">
+                                            {{ ucfirst($sub->status) }}
+                                            @if ($sub->status == 'paused')
+                                                {{ '(' . $sub->pause_start . ' - ' . $sub->pause_end . ')' }}
+                                            @endif
+                                        </span>
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+        </div>
+    </div>
+
 
     <!-- Modal Pause -->
     <div class="modal fade" id="pauseModal" role="dialog" aria-labelledby="pauseModalLabel" aria-hidden="true"
@@ -129,6 +186,10 @@
     <script>
         $(document).ready(function() {
             $('#datatable').DataTable({
+                dom: 'Bfltp',
+                order: []
+            });
+            $('#datatable-paused').DataTable({
                 dom: 'Bfltp',
                 order: []
             });
