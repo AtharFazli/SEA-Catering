@@ -120,13 +120,6 @@ DB_PASSWORD=your_password_here
 
 # File Storage
 FILESYSTEM_DRIVER=public
-
-# Mail Configuration (Optional)
-MAIL_MAILER=smtp
-MAIL_HOST=smtp.gmail.com
-MAIL_PORT=587
-MAIL_USERNAME=your_email@gmail.com
-MAIL_PASSWORD=your_app_password
 ```
 
 ### 🔐 Setup Database
