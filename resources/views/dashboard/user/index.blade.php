@@ -131,52 +131,52 @@
                 dom: 'fltp',
                 order: []
             });
-
-            // Isi hidden input saat modal muncul
-            $(document).ready(function() {
-                $('#pauseModal').on('shown.bs.modal', function(event) {
-                    const button = $(event.relatedTarget);
-                    const id = button.data('id');
-                    console.log('ID langganan:', id);
-                    $('#pause-subscription-id').val(id);
-                    $('#debug-sub-id').text('[debug: ' + id + ']');
-                });
-            });
-
-
-            // Set tanggal minimum hari ini
-            const today = new Date().toISOString().split('T')[0];
-            const startInput = document.querySelector('[name="pause_start"]');
-            const endInput = document.querySelector('[name="pause_end"]');
-
-            startInput.min = today;
-            endInput.min = today;
-
-            startInput.addEventListener('change', function() {
-                endInput.min = this.value;
-            });
-
-            // SweetAlert untuk feedback
-            @if (session('success'))
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: '{{ session('success') }}',
-                    timer: 3000,
-                    showConfirmButton: false
-                });
-            @endif
-
-            @if (session('error'))
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Gagal!',
-                    text: '{{ session('error') }}',
-                    timer: 3000,
-                    showConfirmButton: false
-                });
-            @endif
         });
+
+        // Isi hidden input saat modal muncul
+        $(document).ready(function() {
+            $('#pauseModal').on('shown.bs.modal', function(event) {
+                const button = $(event.relatedTarget);
+                const id = button.data('id');
+                console.log('ID langganan:', id);
+                $('#pause-subscription-id').val(id);
+                $('#debug-sub-id').text('[debug: ' + id + ']');
+            });
+        });
+
+
+        // Set tanggal minimum hari ini
+        const today = new Date().toISOString().split('T')[0];
+        const startInput = document.querySelector('[name="pause_start"]');
+        const endInput = document.querySelector('[name="pause_end"]');
+
+        startInput.min = today;
+        endInput.min = today;
+
+        startInput.addEventListener('change', function() {
+            endInput.min = this.value;
+        });
+
+        // SweetAlert untuk feedback
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session('success') }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        @endif
+
+        @if (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: '{{ session('error') }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        @endif
     </script>
 
     <script>

@@ -23,92 +23,91 @@
                         <p class="text-muted mb-4">We're Indonesia's premier customizable healthy meal service. Tell us how
                             we can help you with your healthy eating journey!</p>
 
-                        @if (session('success'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ session('success') }}
-                                <button class="btn-close" data-bs-dismiss="alert" type="button"></button>
-                            </div>
-                        @endif
 
                         <form action="{{ route('contact.store') }}" method="POST">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-bold" for="name">Full Name</label>
-                                <input class="form-control @error('name') is-invalid @enderror" id="name"
-                                    name="name" type="text" value="{{ old('name') }}" placeholder="Enter your name" required>
-                                @error('name')
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold" for="name">Full Name</label>
+                                    <input class="form-control @error('name') is-invalid @enderror" id="name"
+                                        name="name" type="text" value="{{ old('name') }}"
+                                        placeholder="Enter your name" required>
+                                    @error('name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold" for="email">Email Address</label>
+                                    <input class="form-control @error('email') is-invalid @enderror" id="email"
+                                        name="email" type="email" value="{{ old('email') }}"
+                                        placeholder="Enter your email" required>
+                                    @error('email')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold" for="phone">Phone Number</label>
+                                    <input class="form-control @error('phone') is-invalid @enderror" id="phoneNumber"
+                                        name="phone" type="tel" value="{{ old('phone') }}"
+                                        placeholder="Enter your phone number" required>
+                                    @error('phone')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold" for="city">City</label>
+                                    <input class="form-control @error('city') is-invalid @enderror" id="city"
+                                        name="city" type="text" value="{{ old('city') }}"
+                                        placeholder="Enter your city" required>
+                                    @error('city')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold" for="subject">Subject</label>
+                                <select class="@error('subject') is-invalid @enderror form-select" id="subject"
+                                    name="subject">
+                                    <option value="">Select a subject</option>
+                                    <option value="Meal Inquiry" {{ old('subject') == 'Meal Inquiry' ? 'selected' : '' }}>
+                                        Meal
+                                        Inquiry</option>
+                                    <option value="Delivery Question"
+                                        {{ old('subject') == 'Delivery Question' ? 'selected' : '' }}>Delivery Question
+                                    </option>
+                                    <option value="Customization Request"
+                                        {{ old('subject') == 'Customization Request' ? 'selected' : '' }}>Customization
+                                        Request
+                                    </option>
+                                    <option value="Partnership" {{ old('subject') == 'Partnership' ? 'selected' : '' }}>
+                                        Partnership</option>
+                                    <option value="Feedback" {{ old('subject') == 'Feedback' ? 'selected' : '' }}>Feedback
+                                    </option>
+                                    <option value="Other" {{ old('subject') == 'Other' ? 'selected' : '' }}>Other</option>
+                                </select>
+                                @error('subject')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-bold" for="email">Email Address</label>
-                                <input class="form-control @error('email') is-invalid @enderror" id="email"
-                                    name="email" type="email" value="{{ old('email') }}" placeholder="Enter your email" required>
-                                @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-bold" for="phone">Phone Number</label>
-                                <input class="form-control @error('phone') is-invalid @enderror" id="phoneNumber"
-                                    name="phone" type="tel" value="{{ old('phone') }}" placeholder="Enter your phone number" required> 
-                                @error('phone')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-bold" for="city">City</label>
-                                <input class="form-control @error('city') is-invalid @enderror" id="city"
-                                    name="city" type="text" value="{{ old('city') }}" placeholder="Enter your city"
-                                    required>
-                                @error('city')
+                            <div class="mb-4">
+                                <label class="form-label fw-bold" for="message">Message</label>
+                                <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" rows="5"
+                                    placeholder="Tell us how we can help you..." required>{{ old('message') }}</textarea>
+                                @error('message')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold" for="subject">Subject</label>
-                            <select class="@error('subject') is-invalid @enderror form-select" id="subject"
-                                name="subject">
-                                <option value="">Select a subject</option>
-                                <option value="Meal Inquiry" {{ old('subject') == 'Meal Inquiry' ? 'selected' : '' }}>Meal
-                                    Inquiry</option>
-                                <option value="Delivery Question"
-                                    {{ old('subject') == 'Delivery Question' ? 'selected' : '' }}>Delivery Question
-                                </option>
-                                <option value="Customization Request"
-                                    {{ old('subject') == 'Customization Request' ? 'selected' : '' }}>Customization Request
-                                </option>
-                                <option value="Partnership" {{ old('subject') == 'Partnership' ? 'selected' : '' }}>
-                                    Partnership</option>
-                                <option value="Feedback" {{ old('subject') == 'Feedback' ? 'selected' : '' }}>Feedback
-                                </option>
-                                <option value="Other" {{ old('subject') == 'Other' ? 'selected' : '' }}>Other</option>
-                            </select>
-                            @error('subject')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label fw-bold" for="message">Message</label>
-                            <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" rows="5"
-                                placeholder="Tell us how we can help you..." required>{{ old('message') }}</textarea>
-                            @error('message')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <button class="btn btn-lg w-100" type="submit"
-                            style="background-color: #449eb7; border-color: #449eb7; color: white;">
-                            <i class="fas fa-paper-plane me-2"></i>Send Message
-                        </button>
+                            <button class="btn btn-lg w-100" type="submit"
+                                style="background-color: #449eb7; border-color: #449eb7; color: white;">
+                                <i class="fas fa-paper-plane me-2"></i>Send Message
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -253,26 +252,47 @@
 @push('scripts')
     <script>
         document.getElementById('phoneNumber').addEventListener('input', function(e) {
-                let input = e.target.value;
+            let input = e.target.value;
 
-                // Remove all non-digit characters, except leading "+"
-                input = input.replace(/[^+\d]/g, '');
+            // Remove all non-digit characters, except leading "+"
+            input = input.replace(/[^+\d]/g, '');
 
-                // Normalize phone number
-                if (input.startsWith('0')) {
-                    input = '+62' + input.slice(1);
-                } else if (input.startsWith('62')) {
-                    input = '+62' + input.slice(2);
-                } else if (!input.startsWith('+62')) {
-                    input = '+62' + input.replace(/^\+?/, '');
-                }
+            // Normalize phone number
+            if (input.startsWith('0')) {
+                input = '+62' + input.slice(1);
+            } else if (input.startsWith('62')) {
+                input = '+62' + input.slice(2);
+            } else if (!input.startsWith('+62')) {
+                input = '+62' + input.replace(/^\+?/, '');
+            }
 
-                // Limit length to avoid overflow (e.g., 15 digits max for Indonesian numbers)
-                if (input.length > 15) {
-                    input = input.slice(0, 15);
-                }
+            // Limit length to avoid overflow (e.g., 15 digits max for Indonesian numbers)
+            if (input.length > 15) {
+                input = input.slice(0, 15);
+            }
 
-                e.target.value = input;
+            e.target.value = input;
+        });
+
+        // SweetAlert untuk feedback
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session('success') }}',
+                timer: 3000,
+                showConfirmButton: false
             });
+        @endif
+
+        @if (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: '{{ session('error') }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        @endif
     </script>
 @endpush

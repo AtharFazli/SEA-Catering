@@ -4,30 +4,29 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
         <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+            <i class="fas fa-receipt"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">SEA Catering</div>
     </a>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+    <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
+
     @role('user')
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
+        <li class="nav-item {{ request()->routeIs('subscriptions') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('subscriptions') }}">
-                <i class="fas fa-fw fa-chart-area"></i>
+                <i class="fas fa-fw fa-utensils"></i>
                 <span>Add Subscription</span></a>
         </li>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
+        <li class="nav-item {{ request()->routeIs('contact') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('contact') }}">
                 <i class="fas fa-fw fa-phone"></i>
                 <span>Contact Us</span></a>
@@ -35,31 +34,31 @@
     @endrole
 
     @role('admin')
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('dashboard.table') }}">
+        @php
+            $tableRoutes = ['dashboard.table', 'reactivate.index'];
+            $isTableOpen = request()->routeIs($tableRoutes);
+        @endphp
+
+        <li class="nav-item {{ $isTableOpen ? 'active' : '' }}">
+            <a class="nav-link {{ $isTableOpen ? '' : 'collapsed' }}" data-toggle="collapse"
+                data-target="#collapseUtilities" href="#" aria-expanded="{{ $isTableOpen ? 'true' : 'false' }}"
+                aria-controls="collapseUtilities">
                 <i class="fas fa-fw fa-table"></i>
-                <span>Subs Tables</span></a>
+                <span>Tables</span>
+            </a>
+
+            <div class="{{ $isTableOpen ? 'show' : '' }} collapse" id="collapseUtilities" data-parent="#accordionSidebar"
+                aria-labelledby="headingUtilities">
+                <div class="collapse-inner rounded bg-white py-2">
+                    <h6 class="collapse-header">Customer Tables:</h6>
+                    <a class="collapse-item {{ request()->routeIs('dashboard.table') ? 'active' : '' }}"
+                        href="{{ route('dashboard.table') }}">Subscriptions</a>
+                    <a class="collapse-item {{ request()->routeIs('reactivate.index') ? 'active' : '' }}"
+                        href="{{ route('reactivate.index') }}">Reactivation</a>
+                </div>
+            </div>
         </li>
     @endrole
-
-    <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseUtilities" href="#"
-            aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Utilities</span>
-        </a>
-        <div class="collapse" id="collapseUtilities" data-parent="#accordionSidebar" aria-labelledby="headingUtilities">
-            <div class="collapse-inner rounded bg-white py-2">
-                <h6 class="collapse-header">Custom Utilities:</h6>
-                <a class="collapse-item" href="utilities-color.html">Colors</a>
-                <a class="collapse-item" href="utilities-border.html">Borders</a>
-                <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                <a class="collapse-item" href="utilities-other.html">Other</a>
-            </div>
-        </div>
-    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

@@ -7,18 +7,35 @@
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
     </div>
 
+    <!-- Date Range Selector -->
+    <form class="row g-3 mb-4" method="GET">
+        <div class="col-md-4">
+            <label class="form-label" for="start_date">Start Date</label>
+            <input class="form-control" id="start_date" name="start_date" type="date"
+                value="{{ request('start_date', $start->toDateString()) }}">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label" for="end_date">End Date</label>
+            <input class="form-control" id="end_date" name="end_date" type="date"
+                value="{{ request('end_date', $end->toDateString()) }}">
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+            <button class="btn btn-primary w-100" type="submit">Filter</button>
+        </div>
+    </form>
+
     <div class="card mb-4 shadow">
         <div class="card-header d-flex justify-content-between py-3">
-            <h6 class="font-weight-bold text-primary m-0">Active Subscriptions</h6>
+            <h6 class="font-weight-bold text-primary m-0">Cancelled Subscriptions</h6>
         </div>
         <div class="card-body">
             @include('dashboard.layouts.error')
 
-            @if ($subscriptions->isEmpty())
-                <p>There's no active subscription.</p>
+            @if ($cancelledSubscriptions->isEmpty())
+                <p>There's no cancelled subscription.</p>
             @else
                 <div class="table-responsive">
-                    <table class="table-bordered table" id="datatable">
+                    <table class="table-bordered table" id="datatable-cancelled">
                         <thead>
                             <tr>
                                 @role('admin')
@@ -33,42 +50,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($subscriptions as $sub)
+                            @foreach ($cancelledSubscriptions as $cancel)
                                 <tr>
                                     @role('admin')
                                         <td>{{ $loop->iteration }}. </td>
                                     @endrole
-                                    <td>{{ $sub->plan->name }}</td>
-                                    <td>{{ $sub->mealTypes->pluck('name')->implode(', ') }}</td>
-                                    <td>{{ $sub->deliveryDays->pluck('name')->implode(', ') }}</td>
+                                    <td>{{ $cancel->plan->name }}</td>
+                                    <td>{{ $cancel->mealTypes->pluck('name')->implode(', ') }}</td>
+                                    <td>{{ $cancel->deliveryDays->pluck('name')->implode(', ') }}</td>
                                     <td>
-                                        Rp{{ number_format($sub->plan->price_per_meal * $sub->mealTypes->count() * $sub->deliveryDays->count() * 4.3, 0, ',', '.') }}
+                                        Rp{{ number_format($cancel->plan->price_per_meal * $cancel->mealTypes->count() * $cancel->deliveryDays->count() * 4.3, 0, ',', '.') }}
                                     </td>
                                     <td>
-                                        <span class="badge badge-{{ $sub->status == 'active' ? 'success' : 'secondary' }}">
-                                            {{ ucfirst($sub->status) }}
-                                            @if ($sub->status == 'paused')
-                                                {{ '(' . $sub->pause_start . ' - ' . $sub->pause_end . ')' }}
-                                            @endif
+                                        <span class="badge badge-danger">
+                                          {{ ucfirst($cancel->status) }}
                                         </span>
                                     </td>
                                     <td>
-                                        @if ($sub->status == 'active')
-                                            <button class="btn btn-warning btn-sm" data-toggle="modal"
-                                                data-target="#pauseModal"
-                                                onclick="document.getElementById('pause-subscription-id').value = '{{ $sub->id }}'">
-                                                Pause
-                                            </button>
+                                        <button class="btn btn-success btn-sm btn-reactivate" data-id="{{ $cancel->id }}">
+                                            Reactivate
+                                        </button>
 
-                                            <form class="d-inline cancel-subscription-form" data-id="{{ $sub->id }}"
-                                                action="{{ route('subscriptions.cancel', $sub->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger btn-sm">Cancel</button>
-                                            </form>
-                                        @else
-                                        @endif
-
+                                        <form id="reactivate-form-{{ $cancel->id }}" style="display: none;"
+                                            action="{{ route('reactivate.reactivated', $cancel->id) }}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -78,7 +85,6 @@
             @endif
         </div>
     </div>
-
 
     <!-- Modal Pause -->
     <div class="modal fade" id="pauseModal" role="dialog" aria-labelledby="pauseModalLabel" aria-hidden="true"
@@ -128,56 +134,56 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#datatable').DataTable({
+            $('#datatable-cancelled').DataTable({
                 dom: 'Bfltp',
                 order: []
             });
-        });
 
-        // Isi hidden input saat modal muncul
-        $(document).ready(function() {
-            $('#pauseModal').on('shown.bs.modal', function(event) {
-                const button = $(event.relatedTarget);
-                const id = button.data('id');
-                console.log('ID langganan:', id);
-                $('#pause-subscription-id').val(id);
-                $('#debug-sub-id').text('[debug: ' + id + ']');
+            // Isi hidden input saat modal muncul
+            $(document).ready(function() {
+                $('#pauseModal').on('shown.bs.modal', function(event) {
+                    const button = $(event.relatedTarget);
+                    const id = button.data('id');
+                    console.log('ID langganan:', id);
+                    $('#pause-subscription-id').val(id);
+                    $('#debug-sub-id').text('[debug: ' + id + ']');
+                });
             });
-        });
 
 
-        // Set tanggal minimum hari ini
-        const today = new Date().toISOString().split('T')[0];
-        const startInput = document.querySelector('[name="pause_start"]');
-        const endInput = document.querySelector('[name="pause_end"]');
+            // Set tanggal minimum hari ini
+            const today = new Date().toISOString().split('T')[0];
+            const startInput = document.querySelector('[name="pause_start"]');
+            const endInput = document.querySelector('[name="pause_end"]');
 
-        startInput.min = today;
-        endInput.min = today;
+            startInput.min = today;
+            endInput.min = today;
 
-        startInput.addEventListener('change', function() {
-            endInput.min = this.value;
-        });
-
-        // SweetAlert untuk feedback
-        @if (session('success'))
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: '{{ session('success') }}',
-                timer: 3000,
-                showConfirmButton: false
+            startInput.addEventListener('change', function() {
+                endInput.min = this.value;
             });
-        @endif
 
-        @if (session('error'))
-            Swal.fire({
-                icon: 'error',
-                title: 'Gagal!',
-                text: '{{ session('error') }}',
-                timer: 3000,
-                showConfirmButton: false
-            });
-        @endif
+            // SweetAlert untuk feedback
+            @if (session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: '{{ session('success') }}',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            @endif
+
+            @if (session('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: '{{ session('error') }}',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            @endif
+        });
     </script>
 
     <script>
