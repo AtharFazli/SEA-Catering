@@ -58,9 +58,9 @@
 
 | **Backend** | **Frontend** | **Database** | **Tools** |
 |-------------|-------------|-------------|-----------|
-| ![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?style=flat-square&logo=laravel) | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5) | ![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat-square&logo=mysql) | ![Composer](https://img.shields.io/badge/Composer-885630?style=flat-square&logo=composer) |
-| ![PHP](https://img.shields.io/badge/PHP-8.1+-777BB4?style=flat-square&logo=php) | ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3) | ![Eloquent](https://img.shields.io/badge/Eloquent_ORM-FF2D20?style=flat-square) | ![NPM](https://img.shields.io/badge/NPM-CB3837?style=flat-square&logo=npm) |
-| ![Spatie](https://img.shields.io/badge/Spatie-Permission-blue?style=flat-square) | ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript) | | ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git) |
+| ![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?style=flat-square&logo=laravel) | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white) | ![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat-square&logo=MySQL&logoColor=white) | ![Composer](https://img.shields.io/badge/Composer-Dependency-885630?style=flat-square&logo=Composer&logoColor=white) |
+| ![PHP](https://img.shields.io/badge/PHP-8.1+-777BB4?style=flat-square&logo=php) | ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white) | ![Eloquent](https://img.shields.io/badge/Eloquent_ORM-FF2D20?style=flat-square) | ![NPM](https://img.shields.io/badge/NPM-Package-CB3837?style=flat-square&logo=NPM&logoColor=white) |
+| ![Spatie](https://img.shields.io/badge/Spatie-Permission-blue?style=flat-square) | ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat-square&logo=JavaScript&logoColor=black) | | ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=Git&logoColor=white) |
 
 </div>
 
@@ -294,6 +294,6 @@ Project ini dilisensikan di bawah **MIT License**. Lihat file [LICENSE](https://
 
 **Dibuat dengan ❤️ oleh Tim SEA-Catering**
 
-[🌐 Website](https://sea-catering.com) • [📧 Email](mailto:atharfs9@gmail.com) • [🐦 Twitter](https://x.com/atharfazli)
+ [📧 Email](mailto:atharfs9@gmail.com) • [🐦 Twitter](https://x.com/atharfazli)
 
 </div>
