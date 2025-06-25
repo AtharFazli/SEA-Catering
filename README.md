@@ -159,19 +159,13 @@ php artisan serve
 
 ---
 
-## 🔑 Default Credentials
+## 🔑 Admin Credential
 
-### 👨‍💼 Admin Access
 ```
 📧 Email: admin@gmail.com
 🔐 Password: password
 ```
 
-### 👤 User Access
-```
-📧 Email: athar@gmail.com
-🔐 Password: password
-```
 
 
 ---
