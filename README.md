@@ -69,7 +69,7 @@
 ## 📋 System Requirements
 
 ### Minimum Requirements:
-- **PHP**: 8.1 atau lebih tinggi
+- **PHP**: 8.2 atau lebih tinggi
 - **Composer**: 2.0+
 - **MySQL**: 8.0+
 - **Node.js**: 16.0+
