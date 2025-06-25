@@ -18,6 +18,8 @@ class Subscription extends Model
         'plan_id', 
         'status', 
         'allergies',
+        'pause_start',
+        'pause_end',
         'ended_at', 
         'reactivated_at'
     ];

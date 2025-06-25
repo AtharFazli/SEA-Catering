@@ -2,7 +2,7 @@
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
         <a class="logo d-flex align-items-center me-auto" href="/">
-            <img src="{{ asset('/QuickStart/assets/img/logo.png') }}" alt="">
+            <img class="" src="{{ asset('/img/SEA-2.png') }}" alt="">
             <h1 class="sitename">SEA Catering</h1>
         </a>
         

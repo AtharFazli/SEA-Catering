@@ -123,7 +123,6 @@
 
         {{-- Print and Export Buttons --}}
         <div class="d-flex justify-content-end no-print mb-3 gap-2">
-            <a class="btn btn-success" href="{{ route('admin.export.csv', request()->all()) }}">Export CSV</a>
             <button class="btn btn-secondary" onclick="window.print()">Print Report</button>
         </div>
 

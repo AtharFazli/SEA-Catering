@@ -13,7 +13,7 @@
     </div><!-- End Page Title -->
 
     <!-- Get in Touch Section -->
-    <div class="container mb-5 mt-5">
+    <div class="container mb-5 mt-5 pt-5">
         <div class="row">
             <!-- Contact Form -->
             <div class="col-lg-8">

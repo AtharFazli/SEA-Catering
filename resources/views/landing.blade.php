@@ -669,7 +669,7 @@
 
                 <!-- CTA Button -->
                 <div class="hero-cta-wrapper" data-aos="fade-up" data-aos-delay="200">
-                    <a class="btn-get-started-enhanced" href="#about">
+                    <a class="btn-get-started-enhanced" href="{{ route('mealplans.index') }}">
                         <span class="btn-text">🛒 Get Yours Now</span>
                         <div class="btn-ripple"></div>
                         <i class="fas fa-arrow-right btn-icon"></i>
@@ -1011,7 +1011,7 @@
                     <div class="service-item item-red position-relative">
                         <i class="bi bi-calendar-check icon"></i>
                         <div>
-                            <h3>Weekly & Monthly Plans</h3>
+                            <h3>Weekly Plans</h3>
                             <p>Stay consistent with flexible subscription plans. Perfect for individuals, families, or
                                 office teams looking to eat healthy long-term.</p>
                         </div>
@@ -1126,7 +1126,7 @@
 
             <div class="row gy-4 mt-1">
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-                    <img src="{{ asset('img/meal6.jpg') }}" alt="{{ asset('img/ingredients6.jpg') }}" class="img-fluid w-100 rounded">
+                    <img src="{{ asset('img/testi-bg.png') }}" alt="Testimonial Background" class="img-fluid w-100 rounded">
                 </div>
 
                 <div class="col-lg-6">

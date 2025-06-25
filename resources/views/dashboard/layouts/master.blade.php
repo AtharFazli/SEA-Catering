@@ -10,6 +10,8 @@
     <meta name="author" content="">
 
     <title>@yield('title')</title>
+    <link href="{{ asset('/img/SEA.png') }}" rel="icon">
+
 
     <!-- Custom fonts for this template-->
     <link type="text/css" href="{{ asset('/dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">

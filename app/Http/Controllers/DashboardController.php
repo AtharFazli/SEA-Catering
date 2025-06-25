@@ -56,40 +56,6 @@ class DashboardController extends Controller
         return view('dashboard.admin.table', compact('subscriptions', 'pausedSubscriptions'));
     }
 
-    public function exportCsv(Request $request): StreamedResponse
-    {
-        $subscriptions = Subscription::with(['plan', 'user'])
-            ->whereBetween('created_at', [
-                $request->start_date ?? now()->startOfMonth(),
-                $request->end_date ?? now()->endOfMonth()
-            ])
-            ->get();
-
-        $headers = [
-            "Content-type" => "text/csv",
-            "Content-Disposition" => "attachment; filename=subscriptions.csv",
-        ];
-
-        $columns = ['User Name', 'Email', 'Plan', 'Created At'];
-
-        $callback = function () use ($subscriptions, $columns) {
-            $file = fopen('php://output', 'w');
-            fputcsv($file, $columns);
-
-            foreach ($subscriptions as $sub) {
-                fputcsv($file, [
-                    $sub->user->name ?? 'N/A',
-                    $sub->user->email ?? 'N/A',
-                    $sub->plan->name ?? 'N/A',
-                    $sub->created_at->format('Y-m-d'),
-                ]);
-            }
-
-            fclose($file);
-        };
-
-        return response()->stream($callback, 200, $headers);
-    }
 
     private function parseStartDate(Request $request)
     {

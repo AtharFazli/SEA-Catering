@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Login - SEA Catering</title>
+
+    <link href="{{ asset('/img/SEA.png') }}" rel="icon">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .auth-container {
@@ -100,11 +103,11 @@
         <div class="mb-8 text-center">
             <div
                 class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-indigo-600">
-                <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4">
-                    </path>
-                </svg>
+                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4">
+                        </path>
+                    </svg>
             </div>
             <h1 class="mb-2 text-3xl font-bold text-gray-900">SEA Catering</h1>
             <p class="text-gray-600" id="headerSubtitle">Welcome back!</p>
@@ -210,62 +213,10 @@
                     </div>
                 </div>
 
-                <!-- Confirm Password Field (Register Only) -->
-                <div class="hidden" id="confirmPasswordField">
-                    <div class="relative">
-                        <svg class="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-gray-400"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
-                            </path>
-                        </svg>
-                        <input
-                            class="form-input w-full rounded-lg border border-gray-300 bg-white py-3 pl-10 pr-12 focus:border-transparent focus:ring-2 focus:ring-blue-500"
-                            id="password_confirmation" name="password_confirmation" type="password"
-                            placeholder="Konfirmasi password" />
-                        <button
-                            class="absolute right-3 top-1/2 -translate-y-1/2 transform text-gray-400 hover:text-gray-600"
-                            id="toggleConfirmPassword" type="button">
-                            <svg class="h-5 w-5" id="eyeConfirmIcon" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                                </path>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="mt-1 hidden text-sm text-red-600" id="confirmPasswordError">
-                        <svg class="mr-1 inline h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <span id="confirmPasswordErrorText"></span>
-                    </div>
+                <!-- Remember Me Checkbox -->
+                <div class="mt-4 flex items-center">
+                    <a class="text-sm text-gray-600 hover:underline" href="{{ route('password.request') }}">Forgot your password?</a>
                 </div>
-
-                <!-- Password Requirements (Register Only) -->
-                <div class="hidden rounded-lg bg-blue-50 p-3" id="passwordRequirements">
-                    <p class="mb-2 text-sm font-medium text-blue-800">Password harus:</p>
-                    <div class="space-y-1">
-                        <div class="flex items-center text-sm text-blue-700">
-                            <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            Minimal 6 karakter
-                        </div>
-                        <div class="flex items-center text-sm text-blue-700">
-                            <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            Mudah diingat tapi sulit ditebak
-                        </div>
-                    </div>
-                </div>
-
 
                 <!-- Submit Button -->
                 <button

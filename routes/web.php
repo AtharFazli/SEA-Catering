@@ -38,7 +38,6 @@ Route::middleware(['auth'])->prefix('dash')->group(function () {
         Route::get('/subs-table', [DashboardController::class, 'subsTable'])->name('dashboard.table');
         Route::get('/reactivate', [ReactivateController::class, 'index'])->name('reactivate.index');
         Route::patch('/reactivate/{id}/reactivated', [ReactivateController::class, 'reactivate'])->name('reactivate.reactivated');
-        Route::get('/export-csv', [DashboardController::class, 'exportCsv'])->name('admin.export.csv');
     });
 
     // user routes

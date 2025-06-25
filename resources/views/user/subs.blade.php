@@ -156,6 +156,8 @@
                 <div class="col-lg-8 col-xl-7">
                     <div class="form-container shadow-lg">
                         <div class="form-body p-lg-5 p-4">
+
+                            @include('dashboard.layouts.error')
                             <form id="subscriptionForm" action="{{ route('subscriptions.store') }}" method="POST"
                                 novalidate>
                                 @csrf
