@@ -7,9 +7,51 @@
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
     </div>
 
+    <div class="row">
+
+        <!-- Active Subscriptions -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary h-100 py-2 shadow">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="font-weight-bold text-primary text-uppercase mb-1 text-xs">
+                                Active Subscriptions</div>
+                            <div class="h5 font-weight-bold mb-0 text-gray-800">{{ $activeSubscriptions }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monthly Recurring Revenue -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success h-100 py-2 shadow">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="font-weight-bold text-success text-uppercase mb-1 text-xs">
+                                Total Price</div>
+                            <div class="h5 font-weight-bold mb-0 text-gray-800">
+                                Rp{{ number_format($totalPrice, 0, ',', '.') }}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-money-bill-wave fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
     <div class="card mb-4 shadow">
         <div class="card-header d-flex justify-content-between py-3">
-            <h6 class="font-weight-bold text-primary m-0">Active Subscriptions</h6>
+            <h6 class="font-weight-bold text-primary m-0">Subscriptions</h6>
         </div>
         <div class="card-body">
             @include('dashboard.layouts.error')
@@ -18,7 +60,7 @@
                 <p>There's no active subscription.</p>
             @else
                 <div class="table-responsive">
-                    <table class="table-bordered table" id="datatable">
+                    <table class="table-bordered table-responsive table" id="datatable">
                         <thead>
                             <tr>
                                 @role('admin')
@@ -53,23 +95,43 @@
                                         </span>
                                     </td>
                                     <td>
-                                        @if ($sub->status == 'active')
-                                            <button class="btn btn-warning btn-sm" data-toggle="modal"
-                                                data-target="#pauseModal"
-                                                onclick="document.getElementById('pause-subscription-id').value = '{{ $sub->id }}'">
-                                                Pause
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"
+                                                type="button" aria-expanded="false">
+                                                More
                                             </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="{{ route('subscriptions.show', $sub->id) }}"><i
+                                                        class="fas fa-info-circle mr-1"></i> Info</a>
 
-                                            <form class="d-inline cancel-subscription-form" data-id="{{ $sub->id }}"
-                                                action="{{ route('subscriptions.cancel', $sub->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger btn-sm">Cancel</button>
-                                            </form>
-                                        @else
-                                        @endif
+                                                @if ($sub->status == 'active')
+                                                    <button class="dropdown-item text-warning" data-toggle="modal"
+                                                        data-target="#pauseModal"
+                                                        onclick="document.getElementById('pause-subscription-id').value = '{{ $sub->id }}'">
+                                                        <i class="fas fa-pause mr-1"></i> Pause
+                                                    </button>
 
+                                                    <form class="cancel-subscription-form" data-id="{{ $sub->id }}"
+                                                        action="{{ route('subscriptions.cancel', $sub->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="dropdown-item text-danger" type="submit">
+                                                            <i class="fas fa-trash-alt mr-1"></i> Cancel
+                                                        </button>
+                                                    </form>
+                                                @elseif ($sub->status == 'paused')
+                                                <form class="resume-subscription-form" action="{{ route('subscriptions.resume', $sub->id) }}" method="post">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="dropdown-item text-success"><i
+                                                        class="fas fa-play mr-1"></i> Resume</button>
+                                                </form>
+                                                @endif
+                                            </div>
+                                        </div>
                                     </td>
+
                                 </tr>
                             @endforeach
                         </tbody>
@@ -195,6 +257,33 @@
                         confirmButtonColor: '#d33',
                         cancelButtonColor: '#6c757d',
                         confirmButtonText: 'Yes, cancel!',
+                        cancelButtonText: 'Cancel'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit(); // submit form kalau OK
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const forms = document.querySelectorAll('.resume-subscription-form');
+
+            forms.forEach(function(form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault(); // stop default form
+
+                    Swal.fire({
+                        title: 'Warning?',
+                        text: "Are you sure want to resume this subscription.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#1cc88a',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Yes, resume!',
                         cancelButtonText: 'Cancel'
                     }).then((result) => {
                         if (result.isConfirmed) {

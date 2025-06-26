@@ -21,9 +21,7 @@
                     <table class="table-bordered table" id="datatable">
                         <thead>
                             <tr>
-                                @role('admin')
-                                    <th>No</th>
-                                @endrole
+                                <th>No</th>
                                 <th>Plan's Name</th>
                                 <th>Meal Types</th>
                                 <th>Delivery Days</th>
@@ -53,22 +51,44 @@
                                         </span>
                                     </td>
                                     <td>
-                                        @if ($sub->status == 'active')
-                                            <button class="btn btn-warning btn-sm" data-toggle="modal"
-                                                data-target="#pauseModal"
-                                                onclick="document.getElementById('pause-subscription-id').value = '{{ $sub->id }}'">
-                                                Pause
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"
+                                                type="button" aria-expanded="false">
+                                                More
                                             </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item"
+                                                    href="{{ route('subscriptions.show', $sub->id) }}"><i
+                                                        class="fas fa-info-circle mr-1"></i> Info</a>
 
-                                            <form class="d-inline cancel-subscription-form" data-id="{{ $sub->id }}"
-                                                action="{{ route('subscriptions.cancel', $sub->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger btn-sm">Cancel</button>
-                                            </form>
-                                        @else
-                                        @endif
+                                                @if ($sub->status == 'active')
+                                                    <button class="dropdown-item text-warning" data-toggle="modal"
+                                                        data-target="#pauseModal"
+                                                        onclick="document.getElementById('pause-subscription-id').value = '{{ $sub->id }}'">
+                                                        <i class="fas fa-pause mr-1"></i> Pause
+                                                    </button>
 
+                                                    <form class="cancel-subscription-form" data-id="{{ $sub->id }}"
+                                                        action="{{ route('subscriptions.cancel', $sub->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="dropdown-item text-danger" type="submit">
+                                                            <i class="fas fa-trash-alt mr-1"></i> Cancel
+                                                        </button>
+                                                    </form>
+                                                @elseif ($sub->status == 'paused')
+                                                    <form class="resume-subscription-form"
+                                                        action="{{ route('subscriptions.resume', $sub->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <button class="dropdown-item text-success" type="submit"><i
+                                                                class="fas fa-play mr-1"></i> Resume</button>
+                                                    </form>
+                                                @endif
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -107,9 +127,7 @@
                         <tbody>
                             @foreach ($pausedSubscriptions as $sub)
                                 <tr>
-                                    @role('admin')
-                                        <td>{{ $loop->iteration }}. </td>
-                                    @endrole
+                                    <td>{{ $loop->iteration }}. </td>
                                     <td>{{ $sub->plan->name }}</td>
                                     <td>{{ $sub->mealTypes->pluck('name')->implode(', ') }}</td>
                                     <td>{{ $sub->deliveryDays->pluck('name')->implode(', ') }}</td>
@@ -125,7 +143,44 @@
                                         </span>
                                     </td>
                                     <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"
+                                                type="button" aria-expanded="false">
+                                                More
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item"
+                                                    href="{{ route('subscriptions.show', $sub->id) }}"><i
+                                                        class="fas fa-info-circle mr-1"></i> Info</a>
 
+                                                @if ($sub->status == 'active')
+                                                    <button class="dropdown-item text-warning" data-toggle="modal"
+                                                        data-target="#pauseModal"
+                                                        onclick="document.getElementById('pause-subscription-id').value = '{{ $sub->id }}'">
+                                                        <i class="fas fa-pause mr-1"></i> Pause
+                                                    </button>
+
+                                                    <form class="cancel-subscription-form" data-id="{{ $sub->id }}"
+                                                        action="{{ route('subscriptions.cancel', $sub->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="dropdown-item text-danger" type="submit">
+                                                            <i class="fas fa-trash-alt mr-1"></i> Cancel
+                                                        </button>
+                                                    </form>
+                                                @elseif ($sub->status == 'paused')
+                                                    <form class="resume-subscription-form"
+                                                        action="{{ route('subscriptions.resume', $sub->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <button class="dropdown-item text-success" type="submit"><i
+                                                                class="fas fa-play mr-1"></i> Resume</button>
+                                                    </form>
+                                                @endif
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -135,7 +190,6 @@
             @endif
         </div>
     </div>
-
 
     <!-- Modal Pause -->
     <div class="modal fade" id="pauseModal" role="dialog" aria-labelledby="pauseModalLabel" aria-hidden="true"
@@ -287,6 +341,33 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             document.getElementById('reactivate-form-' + id).submit();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const forms = document.querySelectorAll('.resume-subscription-form');
+
+            forms.forEach(function(form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault(); // stop default form
+
+                    Swal.fire({
+                        title: 'Warning?',
+                        text: "Are you sure want to resume this subscription.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#1cc88a',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Yes, resume!',
+                        cancelButtonText: 'Cancel'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit(); // submit form kalau OK
                         }
                     });
                 });
