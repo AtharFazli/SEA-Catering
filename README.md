@@ -281,6 +281,6 @@ Project ini dilisensikan di bawah **MIT License**. Lihat file [LICENSE](https://
 
 **Dibuat dengan ❤️ oleh Tim SEA-Catering**
 
- [📧 Email](mailto:atharfs9@gmail.com) • [🐦 Twitter](https://x.com/atharfazli)
+  [🌐 Website](https://sea-catering-production.up.railway.app/) • [📧 Email](mailto:atharfs9@gmail.com) • [🐦 Twitter](https://x.com/atharfazli)
 
 </div>
