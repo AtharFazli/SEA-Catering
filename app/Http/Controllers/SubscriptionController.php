@@ -48,6 +48,19 @@ class SubscriptionController extends Controller
         return back()->with('success', 'Subscription successfully paused!');
     }
 
+    public function resume($id)
+    {
+        $subscription = Subscription::where('user_id', auth()->id())->findOrFail($id);
+        if ($subscription->status === 'paused') {
+            $subscription->status = 'active';
+            $subscription->pause_start = null;
+            $subscription->pause_end = null;
+            $subscription->save();
+        }
+
+        return redirect()->back()->with('success', 'Subscription resumed successfully.');
+    }
+
     public function cancel(Subscription $subscription)
     {
         $subscription->update([
@@ -57,6 +70,25 @@ class SubscriptionController extends Controller
 
         return back()->with('success', 'Subscription successfully cancelled.');
     }
+
+    public function show($id)
+{
+    $subscription = Subscription::with(['plan', 'mealTypes', 'deliveryDays'])->findOrFail($id);
+
+    $const = 4.3;
+    $totalPrice = 0;
+    
+    if ($subscription->status === 'active') {
+        $totalPrice = $subscription->plan->price_per_meal *
+        $subscription->mealTypes->count() *
+        $subscription->deliveryDays->count() *
+        $const;
+    }
+    // return $totalPrice;
+
+    return view('dashboard.user.show', compact('subscription', 'totalPrice'));
+}
+
 
     // ===== Helper Methods =====
 
@@ -85,6 +117,7 @@ class SubscriptionController extends Controller
         return Subscription::create([
             'user_id'        => Auth::id(),
             'plan_id'        => $this->getPlanId($data['plan']),
+            'full_name'      => $data['full_name'],
             'phone_number'   => $data['phone_number'],
             'province'       => $data['province'],
             'city'           => $data['city'],
