@@ -47,6 +47,7 @@ class AddSubscriptionSeeder extends Seeder
 
             $subscription = Subscription::create([
                 'user_id' => $user->id,
+                'full_name' => $user->name,
                 'phone_number' => '08' . rand(111111111, 999999999),
                 'province' => 'DKI Jakarta',
                 'city' => 'Jakarta Selatan',

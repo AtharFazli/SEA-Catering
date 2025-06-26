@@ -38,7 +38,16 @@ class DashboardController extends Controller
             ->orderByDesc('id')
             ->get();
 
-        return view('dashboard.user.index', compact('subscriptions'));
+        $const = 4.3;
+        $activeSubscriptions = $subscriptions->where('status', 'active')->count();
+        $totalPrice = $subscriptions->where('status', 'active')->sum(function ($sub) use ($const) {
+            return $sub->plan->price_per_meal *
+                $sub->mealTypes->count() *  
+                $sub->deliveryDays->count() *
+                $const;
+        });
+
+        return view('dashboard.user.index', compact('subscriptions', 'activeSubscriptions', 'totalPrice'));
     }
 
     public function subsTable()

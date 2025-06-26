@@ -41,8 +41,10 @@ Route::middleware(['auth'])->prefix('dash')->group(function () {
     });
 
     // user routes
+    Route::get('/subscription/{id}', [SubscriptionController::class, 'show'])->name('subscriptions.show');
     Route::post('/subscriptions/pause', [SubscriptionController::class, 'submitPause'])->name('subscriptions.pause.submit');
-    Route::delete('/subscriptions/cancel/{id}', [SubscriptionController::class, 'cancel'])->name('subscriptions.cancel');
+    Route::delete('/subscriptions/{subscription}', [SubscriptionController::class, 'cancel'])->name('subscriptions.cancel');
+    Route::patch('/subscriptions/{id}/resume', [SubscriptionController::class, 'resume'])->name('subscriptions.resume');
 });
 
 
