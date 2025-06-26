@@ -60,7 +60,7 @@
                 <p>There's no active subscription.</p>
             @else
                 <div class="table-responsive">
-                    <table class="table-bordered table-responsive table" id="datatable">
+                    <table class="table-bordered table" id="datatable">
                         <thead>
                             <tr>
                                 @role('admin')

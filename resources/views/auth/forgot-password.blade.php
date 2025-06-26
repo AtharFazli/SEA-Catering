@@ -160,6 +160,7 @@
                 </div>
 
                 <!-- Submit Button -->
+                <p class="text-sm text-gray-600">Please check your email after click the button below</p>
                 <button
                     class="btn-primary flex w-full items-center justify-center rounded-lg px-4 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50"
                     id="submitBtn" type="submit">
