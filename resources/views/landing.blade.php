@@ -646,7 +646,7 @@
 
                 <!-- Subtitle with Food Theme -->
                 <p class="hero-subtitle mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <span class="typewriter">🥗 Healthy Meals, Anytime, Anywhere • 🚚 Fast Delivery</span>
+                    <span class="typewriter">🥗 Healthy Meals, Anytime, Anywhere</span>
                 </p>
 
                 <!-- Food Stats -->
@@ -1133,7 +1133,7 @@
                     <form class="" data-aos="fade-up" data-aos-delay="400"
                         action="{{ route('testimonial.store') }}" method="post">
                         @csrf
-                        <div class="row gy-4">
+                        <div class="row gy-4 p-5">
 
                             <!-- Customer Name -->
                             <div class="col-md-12">
@@ -1160,11 +1160,11 @@
                             </div>
 
                             @guest
-                                <button class="btn btn-primary disabled" type="submit">Login to Submit Review</button>
+                                <button class="btn btn-lg w-100 btn-primary disabled" type="submit">Login to Submit Review</button>
 
                             @endguest
                             @auth
-                                <button class="btn btn-primary" type="submit">Submit Review</button>
+                                <button class="btn btn-lg w-100 btn-primary" type="submit">Submit Review</button>
 
                             @endauth
                         </div>
